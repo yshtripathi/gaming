@@ -10,13 +10,7 @@
                 <h1>{{ __('common.sign_in_to_account') }}</h1>
                 <p>{{ __('common.enter_credentials') }}</p>
 
-                @if (session('success'))
-                    <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-                @endif
-
-                @if (session('loginerror'))
-                    <div class="alert alert-danger" role="alert">{{ session('loginerror') }}</div>
-                @endif
+                {{-- Flash messages are rendered globally in the header (frontend.layouts.header) --}}
 
                 <form name="frmLogin" id="frmLogin" action="{{ route('login.submit') }}" method="post">
                     @csrf

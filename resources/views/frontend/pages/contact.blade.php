@@ -10,20 +10,7 @@
                 <h1>{{ __('common.send_us_message') }}</h1>
                 <p>{{ __('common.fill_contact_form') }}</p>
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+                {{-- Flash messages & validation errors are rendered globally in the header (frontend.layouts.header) --}}
 
                 <form id="contact_form" method="POST" action="{{ route('contact.send') }}" class="contact-form9">
                     @csrf
