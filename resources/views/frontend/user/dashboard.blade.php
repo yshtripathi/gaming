@@ -124,30 +124,6 @@
     text-align: center !important;
 }
 
-/* Alerts */
-.dashboard-alert {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 12px 16px !important;
-    border-radius: 12px !important;
-    font-size: 13.5px !important;
-    font-weight: 600 !important;
-    margin-bottom: 18px !important;
-}
-
-.dashboard-alert-success {
-    background: rgba(34, 197, 94, 0.08) !important;
-    border: 1px solid rgba(34, 197, 94, 0.25) !important;
-    color: #16a34a !important;
-}
-
-.dashboard-alert-error {
-    background: rgba(239, 68, 68, 0.08) !important;
-    border: 1px solid rgba(239, 68, 68, 0.25) !important;
-    color: #dc2626 !important;
-}
-
 /* Invalid input (matches JS .is-invalid on confirm field) */
 .auth-input-wrap .form-control.is-invalid {
     border-color: #ef4444 !important;
@@ -352,18 +328,6 @@
                 <!-- Tab: Change Password -->
                 <div class="dashboard-tab active" id="password">
                     <h2>{{ __('common.change_password') }}</h2>
-
-                    @if (session('success'))
-                        <div class="dashboard-alert dashboard-alert-success">
-                            <i class="fal fa-check-circle"></i> {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="dashboard-alert dashboard-alert-error">
-                            <i class="fal fa-exclamation-circle"></i> {{ session('error') }}
-                        </div>
-                    @endif
 
                     <form method="POST" action="{{ route('change.password') }}" id="passwordform">
                         @csrf
