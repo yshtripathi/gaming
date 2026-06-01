@@ -1,6 +1,29 @@
 @extends('frontend.layouts.main')
 @section('title', 'About Us')
 
+@push('styles')
+<style>
+/* About intro 2-image collage */
+.about-image-frame .about-image-inset {
+    position: absolute !important;
+    width: 42% !important;
+    aspect-ratio: 1 / 1 !important;
+    right: 18px !important;
+    bottom: 18px !important;
+    border-radius: 18px !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: 0 18px 40px rgba(8, 10, 12, 0.22) !important;
+    object-fit: cover !important;
+    z-index: 2 !important;
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+.about-image-frame:hover .about-image-inset {
+    transform: scale(1.04) !important;
+}
+</style>
+@endpush
+
 @section('main-content')
 <section class="polygamez-about-page">
     <div class="about-title-band">
@@ -27,7 +50,8 @@
         <div class="container">
             <div class="about-intro-grid">
                 <div class="about-image-frame">
-                    <img src="{{ asset('assets/media/blogs/bd-1.png') }}" alt="{{ __('common.about_us') }}">
+                    <img src="{{ asset('assets/images/i-1.jpg') }}" alt="{{ __('common.about_us') }}">
+                    <img src="{{ asset('assets/images/i-3.jpg') }}" alt="{{ __('common.about_us') }}" class="about-image-inset">
                 </div>
 
                 <div class="about-copy-block">
