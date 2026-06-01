@@ -2,6 +2,26 @@
 @section('title', 'Contact Us')
 
 @section('main-content')
+    <div class="about-title-band">
+        <!-- HUD Visual Effects -->
+        <div class="about-hud-grid"></div>
+        <div class="about-hud-glow"></div>
+        <div class="about-hud-decor border-t"></div>
+        <div class="about-hud-decor border-b"></div>
+        
+        <div class="container position-relative z-1">
+            <h1 class="about-hud-title mb-3 animate-fade-in-up">{{ __('common.contact_us') }}</h1>
+            
+            <div class="about-hud-breadcrumb-capsule animate-fade-in-up delay-1">
+                <a href="{{ route('home') }}" class="hud-breadcrumb-link">
+                    <i class="fas fa-home me-2"></i>{{ __('common.home') }}
+                </a>
+                <span class="hud-breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+                <span class="hud-breadcrumb-current">{{ __('common.contact_us') }}</span>
+            </div>
+        </div>
+    </div>
+
 <section class="polygamez-contact-page">
     <div class="container">
         <div class="contact-shell">

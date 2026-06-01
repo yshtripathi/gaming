@@ -4,12 +4,21 @@
 @section('main-content')
 <section class="polygamez-about-page">
     <div class="about-title-band">
-        <div class="container">
-            <h1>{{ __('common.about_us') }}</h1>
-            <div class="about-breadcrumb">
-                <a href="{{ route('home') }}">{{ __('common.home') }}</a>
-                <span>/</span>
-                <span>{{ __('common.about_us') }}</span>
+        <!-- HUD Visual Effects -->
+        <div class="about-hud-grid"></div>
+        <div class="about-hud-glow"></div>
+        <div class="about-hud-decor border-t"></div>
+        <div class="about-hud-decor border-b"></div>
+        
+        <div class="container position-relative z-1">
+            <h1 class="about-hud-title mb-3 animate-fade-in-up">{{ __('common.about_us') }}</h1>
+            
+            <div class="about-hud-breadcrumb-capsule animate-fade-in-up delay-1">
+                <a href="{{ route('home') }}" class="hud-breadcrumb-link">
+                    <i class="fas fa-home me-2"></i>{{ __('common.home') }}
+                </a>
+                <span class="hud-breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+                <span class="hud-breadcrumb-current">{{ __('common.about_us') }}</span>
             </div>
         </div>
     </div>
@@ -32,51 +41,66 @@
             </div>
 
             <div class="about-split-row">
-                <div class="about-skills-block">
+                <div class="about-skills-block animate-fade-in-up">
                     <h2>{{ __('common.why_choose_us') }}</h2>
                     <p>{{ __('common.why_choose_us_desc') }}</p>
+                    
+                    <div class="about-guarantee-stack">
+                        <!-- Guarantee Item 1 -->
+                        <div class="about-guarantee-card">
+                            <div class="guarantee-icon-wrapper">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="guarantee-text-wrapper">
+                                <h4>{{ __('common.fast_secure') }}</h4>
+                                <p>Every order is processed using military-grade security channels and rapid execution protocols, ensuring instant point updates with zero downtime.</p>
+                            </div>
+                        </div>
 
-                    <div class="about-skill-list">
-                        <div class="about-skill-item">
-                            <div>
-                                <span>{{ __('common.fast_secure') }}</span>
-                                <strong>92%</strong>
+                        <!-- Guarantee Item 2 -->
+                        <div class="about-guarantee-card">
+                            <div class="guarantee-icon-wrapper">
+                                <i class="fas fa-trophy"></i>
                             </div>
-                            <i style="width: 92%;"></i>
+                            <div class="guarantee-text-wrapper">
+                                <h4>{{ __('common.expert_boosters') }}</h4>
+                                <p>Our booster crew consists entirely of vetted global pro players dedicated to elevating your competitive ranking and match standards safely.</p>
+                            </div>
                         </div>
-                        <div class="about-skill-item">
-                            <div>
-                                <span>{{ __('common.expert_boosters') }}</span>
-                                <strong>88%</strong>
+
+                        <!-- Guarantee Item 3 -->
+                        <div class="about-guarantee-card">
+                            <div class="guarantee-icon-wrapper">
+                                <i class="fas fa-user-shield"></i>
                             </div>
-                            <i style="width: 88%;"></i>
-                        </div>
-                        <div class="about-skill-item">
-                            <div>
-                                <span>{{ __('common.safe_confidential') }}</span>
-                                <strong>96%</strong>
+                            <div class="guarantee-text-wrapper">
+                                <h4>{{ __('common.safe_confidential') }}</h4>
+                                <p>We enforce rigorous confidentiality standards. Your account credentials and gameplay sessions remain fully encrypted and anonymous.</p>
                             </div>
-                            <i style="width: 96%;"></i>
                         </div>
                     </div>
                 </div>
 
-                <div class="about-stats-grid">
+                <div class="about-stats-grid animate-fade-in-up delay-3">
                     <div class="about-stat">
-                        <strong>20+</strong>
+                        <div class="about-stat-icon"><i class="fas fa-trophy"></i></div>
+                        <strong>ELITE BOOSTERS</strong>
+                        <span>{{ __('common.expert_boosters') }}</span>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-icon"><i class="fas fa-bolt"></i></div>
+                        <strong>SECURED VAULT</strong>
                         <span>{{ __('common.fast_secure') }}</span>
                     </div>
                     <div class="about-stat">
-                        <strong>1,000+</strong>
+                        <div class="about-stat-icon"><i class="fas fa-shield-alt"></i></div>
+                        <strong>GUARANTEED</strong>
                         <span>{{ __('common.guaranteed_progress') }}</span>
                     </div>
                     <div class="about-stat">
-                        <strong>300+</strong>
+                        <div class="about-stat-icon"><i class="fas fa-headset"></i></div>
+                        <strong>24/7 SUPPORT</strong>
                         <span>{{ __('common.safe_confidential') }}</span>
-                    </div>
-                    <div class="about-stat">
-                        <strong>64</strong>
-                        <span>{{ __('common.expert_boosters') }}</span>
                     </div>
                 </div>
             </div>
