@@ -185,7 +185,7 @@
               <span class="section-tag">{{ __('common.gaming_zone') }}</span>
               <h2>{{ __('common.game_streams') }}</h2>
             </div>
-            <a href="{{ route('product-grids') }}" class="category-more-cta">
+            <a href="{{ route('product-lists') }}" class="category-more-cta">
               {{ __('common.browse_categories') }}
               <i class="fas fa-arrow-right"></i>
             </a>
@@ -550,7 +550,7 @@
                   </ul>
 
                   <!-- Dynamic link pointing to the grids layout -->
-                  <a href="{{ route('product-grids') }}" class="cinema-cta-btn">
+                  <a href="{{ route('product-lists') }}" class="cinema-cta-btn">
                     <span class="btn-glow-bar"></span>
                     <span class="btn-text-content">
                       EXPLORE IT <i class="fas fa-compass ms-2"></i>

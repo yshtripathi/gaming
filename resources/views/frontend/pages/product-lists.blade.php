@@ -1,254 +1,93 @@
 @extends('frontend.layouts.main')
 
+@php
+    if (request()->routeIs('product-lists')) {
+        $category = null;
+    }
+
+    if (isset($category)) {
+        if (is_object($category) && method_exists($category, 'first')) {
+            $category = $category->first();
+        }
+        if (!is_object($category) || !isset($category->title)) {
+            $category = null;
+        }
+    }
+@endphp
+
 @if(isset($category->title) && $category->title)
     @section('title', $category->title)
     @section('description', $category->summary)
 @else
-    @section('title', 'All Game Category List')
-    @section('description', 'All Game Category List')
+    @section('title', 'Games Offered')
+    @section('description', 'Games Offered')
 @endif
 
 @push('styles')
 <style>
-/* Product List Page Hero Banner */
-.product-hero-banner {
-    position: relative;
-    min-height: 450px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: var(--ws-bg-dark);
-    margin-top: 80px;
-}
-
-.product-hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('{{ isset($catphoto) ? env("WEBSITE_URL") ."/". $catphoto : url("assets/media/blogs/bd-1.png") }}');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.5;
-}
-
-.product-hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(15, 15, 35, 0.7) 0%, rgba(15, 15, 35, 0.95) 100%);
-}
-
-.product-hero-particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-}
-
-.product-particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--ws-primary-light);
-    border-radius: 50%;
-    opacity: 0.5;
-    animation: float-product-particle 10s ease-in-out infinite;
-}
-
-.product-particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-.product-particle:nth-child(2) { left: 20%; top: 80%; animation-delay: 2s; }
-.product-particle:nth-child(3) { left: 40%; top: 40%; animation-delay: 4s; }
-.product-particle:nth-child(4) { left: 60%; top: 70%; animation-delay: 1s; }
-.product-particle:nth-child(5) { left: 80%; top: 30%; animation-delay: 3s; }
-.product-particle:nth-child(6) { left: 90%; top: 60%; animation-delay: 5s; }
-
-@keyframes float-product-particle {
-    0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
-    50% { transform: translateY(-40px) scale(1.5); opacity: 1; }
-}
-
-.product-hero-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 60px 20px;
-}
-
-.product-hero-title {
-    font-size: 72px;
-    font-weight: 900;
-    font-family: 'Chakra Petch', sans-serif !important;
-    text-transform: uppercase;
-    letter-spacing: 8px;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, var(--ws-text-primary) 0%, var(--ws-primary-light) 50%, var(--ws-accent-light) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 40px rgba(124, 58, 237, 0.6));
-    animation: title-glow 3s ease-in-out infinite;
-}
-
-@keyframes title-glow {
-    0%, 100% { filter: drop-shadow(0 0 40px rgba(124, 58, 237, 0.6)); }
-    50% { filter: drop-shadow(0 0 60px rgba(124, 58, 237, 0.9)); }
-}
-
-.product-hero-subtitle {
-    font-size: 18px;
-    color: var(--ws-text-muted);
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.product-hero-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: linear-gradient(135deg, var(--ws-primary), var(--ws-accent));
-    color: white;
-    padding: 16px 40px;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
-}
-
-.product-hero-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 40px rgba(124, 58, 237, 0.7);
-    color: white;
-}
-
-/* Category Filter Pills */
-.category-filter-bar {
-    background: rgba(26, 26, 46, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--ws-border-light);
-    padding: 16px 0;
-    position: sticky;
-    top: 80px;
-    z-index: 100;
-}
-
-.category-pills {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.category-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: transparent;
-    border: 2px solid var(--ws-border-light);
-    color: var(--ws-text-muted);
-    padding: 10px 24px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.category-pill:hover,
-.category-pill.active {
-    background: var(--ws-primary);
-    border-color: var(--ws-primary);
-    color: white;
-    box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
-}
-
-/* Product Grid Section */
+/* Product Grid Page - Light themed HUD Styling */
 .product-grid-section {
-    padding: 60px 0;
-    background: var(--ws-bg-dark);
+    padding: 64px 0 96px !important;
+    background: transparent !important;
 }
 
 .product-grid-header {
-    text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 32px !important;
+    border-left: 3px solid #6d7f00 !important;
+    padding-left: 16px !important;
 }
 
 .product-grid-header h2 {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--ws-text-primary) !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 32px !important;
+    font-weight: 900 !important;
+    color: #0b0d10 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
 }
 
-.product-grid-header p {
-    color: var(--ws-text-muted);
-    font-size: 16px;
+/* Catalog Sidebar and Pills Adjustments */
+.product-catalog-layout .category-filter-bar {
+    background: #ffffff !important;
+    border: 1px solid rgba(8, 10, 12, 0.08) !important;
+    box-shadow: 0 15px 45px rgba(8, 10, 12, 0.03) !important;
+    backdrop-filter: none !important;
 }
 
-/* Product Cards Grid */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+.product-catalog-layout .category-pill {
+    background: #f6f7f2 !important;
+    border: 1px solid rgba(8, 10, 12, 0.06) !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
 
-@media (max-width: 1200px) {
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.product-catalog-layout .category-pill:hover,
+.product-catalog-layout .category-pill.active {
+    background: #0b0d10 !important;
+    border-color: #0b0d10 !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 25px rgba(8, 10, 12, 0.15) !important;
 }
 
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .product-hero-title {
-        font-size: 42px;
-        letter-spacing: 4px;
-    }
-    
-    .category-pills {
-        justify-content: flex-start;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        padding-bottom: 10px;
-    }
-    
-    .category-pill {
-        white-space: nowrap;
-    }
-}
-
-/* Product Card */
+/* Premium Product Card Redesign */
 .product-card-new {
-    background: var(--ws-bg-card);
-    border-radius: 20px;
+    background: #ffffff !important;
+    border: 1px solid rgba(8, 10, 12, 0.07) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(8, 10, 12, 0.02) !important;
     overflow: hidden;
-    border: 1px solid var(--ws-border-light);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .product-card-new:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: var(--ws-primary);
+    transform: translateY(-6px) !important;
+    border-color: #6d7f00 !important;
     box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 30px rgba(124, 58, 237, 0.3);
+        0 20px 40px rgba(8, 10, 12, 0.05),
+        0 0 20px rgba(223, 255, 0, 0.12) !important;
 }
 
 .product-card-image {
@@ -256,106 +95,80 @@
     width: 100%;
     aspect-ratio: 16/10;
     overflow: hidden;
-}
-
-.product-card-image-link {
-    display: block;
-    width: 100%;
-    height: 100%;
+    background: #f6f7f2;
 }
 
 .product-card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
 
 .product-card-new:hover .product-card-image img {
-    transform: scale(1.1);
+    transform: scale(1.06) !important;
 }
 
 .product-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(15, 15, 35, 0.9) 0%, transparent 60%);
+    background: linear-gradient(180deg, transparent 40%, rgba(8, 10, 12, 0.72) 100%) !important;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 16px;
     opacity: 0;
     transition: opacity 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .product-card-new:hover .product-card-overlay {
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 .product-card-play {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--ws-primary), var(--ws-accent));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: scale(0);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.product-card-new:hover .product-card-play {
-    transform: scale(1);
-}
-
-.product-card-play svg {
-    width: 24px;
-    height: 24px;
-    color: white;
-    margin-left: 4px;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: #dfff00 !important;
+    color: #0b0d10 !important;
+    padding: 8px 18px !important;
+    border-radius: 999px !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(223, 255, 0, 0.25) !important;
 }
 
 .product-card-body {
-    padding: 24px;
+    padding: 22px !important;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .product-card-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--ws-text-primary) !important;
-    line-height: 1.3;
-}
-
-.product-card-features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-.product-card-feature {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: var(--ws-text-muted);
-    background: rgba(124, 58, 237, 0.1);
-    padding: 4px 10px;
-    border-radius: 20px;
-    border: 1px solid rgba(124, 58, 237, 0.2);
-}
-
-.product-card-feature svg {
-    width: 12px;
-    height: 12px;
-    color: var(--ws-primary-light);
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 17.5px !important;
+    font-weight: 800 !important;
+    color: #0b0d10 !important;
+    margin: 0 0 16px 0 !important;
+    line-height: 1.35 !important;
+    height: 48px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .product-card-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 16px;
-    border-top: 1px solid var(--ws-border-light);
+    padding-top: 18px !important;
+    border-top: 1px solid rgba(8, 10, 12, 0.05) !important;
+    margin-top: auto;
 }
 
 .product-card-price {
@@ -364,270 +177,557 @@
 }
 
 .product-card-price-label {
-    font-size: 12px;
-    color: var(--ws-text-muted);
+    font-size: 10px !important;
+    font-weight: 700;
+    color: rgba(8, 10, 12, 0.45) !important;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .product-card-price-value {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--ws-primary-light) !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    color: #0b0d10 !important;
+    line-height: 1.1;
+    margin-top: 2px;
 }
 
 .product-card-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, var(--ws-primary), var(--ws-primary-dark));
-    color: white;
-    padding: 12px 20px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 600;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    background: #0b0d10 !important;
+    border: 1px solid rgba(8, 10, 12, 0.1) !important;
+    border-radius: 12px !important;
+    color: #dfff00 !important;
+    padding: 10px 18px !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 12.5px !important;
+    font-weight: 800 !important;
     text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
+    letter-spacing: 0.5px;
     cursor: pointer;
+    box-shadow: 0 4px 12px rgba(8, 10, 12, 0.05) !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
 
 .product-card-btn:hover {
-    background: linear-gradient(135deg, var(--ws-accent), var(--ws-primary));
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
-    color: white;
+    background: #dfff00 !important;
+    color: #0b0d10 !important;
+    border-color: #dfff00 !important;
+    box-shadow: 0 8px 20px rgba(223, 255, 0, 0.25) !important;
+    transform: translateY(-1px) !important;
 }
 
 .product-card-btn svg {
-    width: 16px;
-    height: 16px;
+    width: 14px !important;
+    height: 14px !important;
+    stroke: currentColor !important;
 }
 
-/* No Products State */
-.no-products {
-    text-align: center;
-    padding: 80px 20px;
-}
-
-.no-products-icon {
-    width: 100px;
-    height: 100px;
-    background: rgba(124, 58, 237, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px;
-}
-
-.no-products-icon svg {
-    width: 50px;
-    height: 50px;
-    color: var(--ws-primary);
-}
-
-.no-products h3 {
-    font-size: 24px;
-    color: var(--ws-text-primary) !important;
-    margin-bottom: 12px;
-}
-
-.no-products p {
-    color: var(--ws-text-muted);
-}
-
-/* View All Button */
+/* View All and empty states styling */
 .view-all-container {
-    text-align: center;
-    margin-top: 50px;
+    margin-top: 48px;
 }
 
 .view-all-btn {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    background: transparent;
-    border: 2px solid var(--ws-primary);
-    color: var(--ws-primary-light);
-    padding: 14px 40px;
-    border-radius: 50px;
-    font-size: 15px;
-    font-weight: 600;
+    gap: 10px;
+    background: #0b0d10 !important;
+    border: 1px solid rgba(8, 10, 12, 0.1) !important;
+    color: #dfff00 !important;
+    padding: 14px 36px !important;
+    border-radius: 999px !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
     text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 25px rgba(8, 10, 12, 0.1) !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
 
 .view-all-btn:hover {
-    background: var(--ws-primary);
-    color: white;
-    box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+    background: #dfff00 !important;
+    color: #0b0d10 !important;
+    border-color: #dfff00 !important;
+    box-shadow: 0 12px 30px rgba(223, 255, 0, 0.3) !important;
+    transform: translateY(-2px) !important;
 }
 
 .view-all-btn svg {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s ease;
+    width: 18px !important;
+    height: 18px !important;
+    stroke: currentColor !important;
 }
 
-.view-all-btn:hover svg {
-    transform: translateX(5px);
+.no-products {
+    background: #ffffff !important;
+    border: 1px solid rgba(8, 10, 12, 0.08) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 15px 45px rgba(8, 10, 12, 0.03) !important;
+    padding: 64px 32px !important;
+}
+
+.no-products-icon {
+    background: rgba(223, 255, 0, 0.15) !important;
+    width: 80px;
+    height: 80px;
+}
+
+.no-products-icon svg {
+    color: #6d7f00 !important;
+    width: 40px;
+    height: 40px;
+}
+
+.no-products h3 {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #0b0d10 !important;
+    text-transform: uppercase;
+}
+
+.no-products p {
+    color: rgba(8, 10, 12, 0.5) !important;
+    font-size: 14.5px !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Category Spotlight Section */
+.category-spotlight-section {
+    padding: 64px 0 24px !important;
+    background: transparent !important;
+}
+
+.category-spotlight-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(8, 10, 12, 0.08) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 15px 45px rgba(8, 10, 12, 0.03) !important;
+    padding: 48px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 32px;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .category-spotlight-card {
+        padding: 28px !important;
+        gap: 24px;
+    }
+}
+
+.category-spotlight-media {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 680px;
+    aspect-ratio: 16/9;
+    border: 1px solid rgba(8, 10, 12, 0.08);
+    box-shadow: 0 10px 30px rgba(8, 10, 12, 0.05);
+}
+
+.category-spotlight-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.category-spotlight-card:hover .category-spotlight-media img {
+    transform: scale(1.05);
+}
+
+.category-spotlight-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.spotlight-title {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 36px !important;
+    font-weight: 900 !important;
+    color: #0b0d10 !important;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin: 0 0 16px 0;
+    line-height: 1.15;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .spotlight-title {
+        font-size: 28px !important;
+    }
+}
+
+.spotlight-summary {
+    font-size: 16.5px !important;
+    line-height: 1.65 !important;
+    color: rgba(8, 10, 12, 0.72) !important;
+    margin: 0 auto;
+    max-width: 760px;
+    text-align: center;
+}
+
+.product-catalog-layout.no-sidebar-landing {
+    grid-template-columns: 1fr !important;
+}
+
+/* Premium Responsive 3-Column Horizontal Grid of Smaller Cards */
+.product-catalog-layout .products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+}
+
+.product-catalog-layout .products-grid.show-all-packs {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+}
+
+/* Compact Premium Cards */
+.product-catalog-layout .product-card-new {
+    padding: 20px !important;
+    border-radius: 18px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(8, 10, 12, 0.07) !important;
+    box-shadow: 0 10px 30px rgba(8, 10, 12, 0.02) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+.product-catalog-layout .product-card-new:hover {
+    transform: translateY(-6px) !important;
+    border-color: #6d7f00 !important;
+    box-shadow: 
+        0 20px 40px rgba(8, 10, 12, 0.05),
+        0 0 20px rgba(223, 255, 0, 0.12) !important;
+}
+
+.product-catalog-layout .product-card-title {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: #0b0d10 !important;
+    margin: 0 0 14px 0 !important;
+    line-height: 1.35 !important;
+    height: 44px !important;
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    text-align: left !important;
+}
+
+.product-catalog-layout .product-card-image {
+    border-radius: 12px !important;
+    overflow: hidden;
+    margin: 0 0 16px 0 !important;
+    width: 100% !important;
+    background: #f6f7f2 !important;
+    aspect-ratio: auto !important;
+}
+
+.product-catalog-layout .product-card-image img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+.product-catalog-layout .product-card-body {
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-grow: 1 !important;
+}
+
+.product-catalog-layout .product-card-summary {
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+    color: rgba(8, 10, 12, 0.6) !important;
+    margin: 0 0 20px 0 !important;
+    white-space: normal !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    text-align: left !important;
+}
+
+.product-catalog-layout .product-card-footer {
+    padding-top: 16px !important;
+    border-top: 1px solid rgba(8, 10, 12, 0.06) !important;
+    margin-top: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+/* Explore and Add to Cart Action Buttons */
+.product-card-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.product-explore-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: transparent !important;
+    border: 1px solid rgba(8, 10, 12, 0.12) !important;
+    border-radius: 10px !important;
+    color: #0b0d10 !important;
+    padding: 8px 14px !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.product-explore-btn:hover {
+    background: #0b0d10 !important;
+    border-color: #0b0d10 !important;
+    color: #dfff00 !important;
+}
+
+.product-explore-btn i {
+    font-size: 11px !important;
+}
+
+.product-card-new.d-none-filtered {
+    display: none !important;
+}
+
+/* Responsive Grid Adapters */
+@media (max-width: 1400px) {
+    .product-catalog-layout .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 20px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-catalog-layout .products-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
 }
 </style>
 @endpush
 
 @section('main-content')
-<!-- Product Hero Banner -->
-<div class="product-hero-banner">
-    <div class="product-hero-bg"></div>
-    <div class="product-hero-overlay"></div>
-    <div class="container">
-        <div class="product-hero-content">
-            <h1 class="product-hero-title">
+
+<div class="about-title-band">
+    <!-- HUD Visual Effects -->
+    <div class="about-hud-grid"></div>
+    <div class="about-hud-glow"></div>
+    <div class="about-hud-decor border-t"></div>
+    <div class="about-hud-decor border-b"></div>
+    
+    <div class="container position-relative z-1">
+        <h1 class="about-hud-title mb-3 animate-fade-in-up">
+            @if(isset($category->title) && $category->title)
+                {{ $category->title }}
+            @else
+                Games Offered
+            @endif
+        </h1>
+        
+        <div class="about-hud-breadcrumb-capsule animate-fade-in-up delay-1">
+            <a href="{{ route('home') }}" class="hud-breadcrumb-link">
+                <i class="fas fa-home me-2"></i>{{ __('common.home') }}
+            </a>
+            <span class="hud-breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span class="hud-breadcrumb-current">
                 @if(isset($category->title) && $category->title)
                     {{ $category->title }}
                 @else
-                    All Games
+                    Games Offered
                 @endif
-            </h1>
-            <p class="product-hero-subtitle">
-                @if(isset($category->summary) && $category->summary)
-                    {{ $category->summary }}
-                @else
-                    {{ __('common.browse_services') }}
-                @endif
-            </p>
-            <!-- <a href="#products" class="product-hero-btn">
-                {{ __('common.quick_start') }}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a> -->
+            </span>
         </div>
     </div>
 </div>
 
-<!-- Category Filter Bar -->
-@php
-    // Generate unique sub-categories from product titles
-    $uniqueProducts = collect($products)->map(function($product) use ($category) {
-        $title = $product->title;
-        // Remove category name prefix if present
-        if (isset($category->title) && strpos($title, $category->title . ' - ') === 0) {
-            $title = Str::remove($category->title . ' - ', $title);
-        }
-        return $title;
-    })->unique()->values();
-@endphp
+@if(isset($category) && $category)
+<section class="category-spotlight-section">
+    <div class="container">
+        <div class="category-spotlight-card">
+            <div class="category-spotlight-media animate-fade-in-up">
+                <img src="{{ isset($catphoto) && $catphoto ? env('WEBSITE_URL') . '/' . $catphoto : (isset($category->photo) && $category->photo ? asset($category->photo) : asset('assets/media/blogs/bd-1.png')) }}" alt="{{ $category->title }}">
+            </div>
+            <div class="category-spotlight-content animate-fade-in-up delay-1">
+                <h2 class="spotlight-title">{{ $category->title }}</h2>
+                @if($category->summary)
+                    <p class="spotlight-summary">{{ $category->summary }}</p>
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
+@endif
 
 <!-- Product Grid Section -->
 <section class="product-grid-section" id="products">
     <div class="container">
         <div class="product-grid-header">
-            <h2>{{ __('common.services') }}</h2>
+            <h2>
+                @if(isset($category->title) && $category->title)
+                    {{ __('common.services') }}
+                @else
+                    Games Offered
+                @endif
+            </h2>
             <!-- <p>{{ __('common.browse_services') }}</p> -->
         </div>
         
-        @if(count($products))
-            <div class="product-catalog-layout">
-                <aside class="category-filter-bar">
-                    <div class="category-pills">
-                        <a href="#" class="category-pill active" data-filter="all">
-                            <span>01</span>
-                            {{ __('common.all_packs') }}
-                        </a>
-                        @foreach($uniqueProducts as $index => $productName)
-                            <a href="#" class="category-pill" data-filter="tab-{{ $index }}">
-                                <span>{{ str_pad($index + 2, 2, '0', STR_PAD_LEFT) }}</span>
-                                {{ $productName }}
+        @if((!isset($category) || !$category) || count($products))
+            @php
+                $allCategories = Helper::productCategoryList("all")->where('is_parent', 1);
+            @endphp
+            <div class="product-catalog-layout {{ !isset($category) || !$category ? 'no-sidebar-landing' : '' }}">
+                @if(isset($category) && $category)
+                    <aside class="category-filter-bar">
+                        <div class="category-pills">
+                            <a href="{{ route('product-lists') }}" class="category-pill {{ !isset($category) || !$category ? 'active' : '' }}">
+                                <span>01</span>
+                                {{ __('common.all_packs') }}
                             </a>
-                        @endforeach
-                    </div>
-                </aside>
+                            @foreach($allCategories as $index => $cat)
+                                @php
+                                    $isActive = isset($category) && $category && $category->id === $cat->id;
+                                @endphp
+                                <a href="{{ route('product-cat', $cat->slug) }}" class="category-pill {{ $isActive ? 'active' : '' }}">
+                                    <span>{{ str_pad($index + 2, 2, '0', STR_PAD_LEFT) }}</span>
+                                    {{ $cat->title }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </aside>
+                @endif
 
                 <div class="products-grid">
-                    @foreach($products as $index => $product)
-                        @php
-                            $productSlug = Str::remove($category->title . ' - ', $product->title);
-                            $filterClass = 'tab-' . $uniqueProducts->search($productSlug);
-                            if ($filterClass === 'tab-') {
-                                $filterClass = 'tab-' . $index;
-                            }
-                        @endphp
-                        <div class="product-card-new" data-category="{{ $filterClass }}">
-                            <div class="product-card-image">
-                                @php 
-                                    $photo = isset($product->photo) ? explode(',', $product->photo) : ['assets/media/blogs/bd-1.png'];
-                                @endphp
-                                <a href="{{ route('product-detail', $product->slug) }}" class="product-card-image-link">
-                                    <img src="{{ asset($photo[0]) }}" alt="{{ $product->title }}">
-                                    <div class="product-card-overlay">
-                                        <div class="product-card-play">
-                                            <span>{{ __('common.explore') }}</span>
+                    @if(!isset($category) || !$category)
+                        <!-- Main Catalog Landing Page: Show all Games (Categories) -->
+                        @foreach($allCategories as $cat)
+                            @php
+                                $catPhoto = 'assets/media/blogs/bd-1.png';
+                                if (!empty($cat->photo)) {
+                                    if (filter_var($cat->photo, FILTER_VALIDATE_URL)) {
+                                        $catPhoto = $cat->photo;
+                                    } else {
+                                        $catPhoto = asset($cat->photo);
+                                    }
+                                }
+                            @endphp
+                            <div class="product-card-new">
+                                <h3 class="product-card-title">{{ $cat->title }}</h3>
+                                
+                                <div class="product-card-image">
+                                    <a href="{{ route('product-cat', $cat->slug) }}" class="product-card-image-link">
+                                        <img src="{{ $catPhoto }}" alt="{{ $cat->title }}">
+                                    </a>
+                                </div>
+                                
+                                <div class="product-card-body">
+                                    <div class="category-services-count mb-2" style="font-size: 12px !important; color: #6d7f00 !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; text-align: left;">
+                                        {{ Helper::productCountByCategory($cat->id) }} {{ __('common.services') }}
+                                    </div>
+                                    
+                                    @if($cat->summary)
+                                        <p class="product-card-summary" style="margin-bottom: 20px !important;">{{ $cat->summary }}</p>
+                                    @endif
+                                    
+                                    <div class="product-card-footer" style="padding-top: 16px !important; border-top: 1px solid rgba(8, 10, 12, 0.06) !important; margin-top: auto !important; display: flex !important; align-items: center !important; justify-content: flex-end !important;">
+                                        <a href="{{ route('product-cat', $cat->slug) }}" class="product-explore-btn">
+                                            {{ __('common.explore') }}
                                             <i class="fal fa-arrow-right"></i>
-                                        </div>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="product-card-body">
-                                <h3 class="product-card-title">{{ $product->title }}</h3>
-                                <!-- <div class="product-card-features">
-                                    <span class="product-card-feature">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <polyline points="20 6 9 17 4 12"/>
-                                        </svg>
-                                        {{ __('common.guaranteed_drop') }}
-                                    </span>
-                                    <span class="product-card-feature">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                                        </svg>
-                                        {{ __('common.all_difficulties') }}
-                                    </span>
-                                    <span class="product-card-feature">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"/>
-                                            <path d="M12 6v6l4 2"/>
-                                        </svg>
-                                        {{ __('common.fast_completion') }}
-                                    </span>
-                                </div> -->
-                                <div class="product-card-footer">
-                                    <div class="product-card-price">
-                                        <span class="product-card-price-label">{{ __('common.points') }}</span>
-                                        <span class="product-card-price-value">{{ number_format(Helper::getProductPriceByCurrency('USD', $product), 0) }}</span>
-                                    </div>
-                                    <form action="{{route('single-add-to-cart')}}" method="POST" class="m-0">
-                                        @csrf
-                                        <input type="hidden" name="quant[1]" class="qty-input" value="1">
-                                        <input type="hidden" name="slug" value="{{$product->slug}}">
-                                        <button type="submit" class="product-card-btn">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <circle cx="9" cy="21" r="1"/>
-                                                <circle cx="20" cy="21" r="1"/>
-                                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                                            </svg>
-                                            {{ __('common.add_to_cart') }}
-                                        </button>
-                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @else
+                        <!-- Specific Category Catalog: Show products inside this Category -->
+                        @foreach($products as $product)
+                            <div class="product-card-new">
+                                <h3 class="product-card-title">{{ $product->title }}</h3>
+                                
+                                <div class="product-card-image">
+                                    @php 
+                                        $photo = isset($product->photo) ? explode(',', $product->photo) : ['assets/media/blogs/bd-1.png'];
+                                    @endphp
+                                    <a href="{{ route('product-detail', $product->slug) }}" class="product-card-image-link">
+                                        <img src="{{ asset($photo[0]) }}" alt="{{ $product->title }}">
+                                    </a>
+                                </div>
+                                
+                                <div class="product-card-body">
+                                    @if($product->summary)
+                                        <p class="product-card-summary">{{ $product->summary }}</p>
+                                    @endif
+                                    
+                                    <div class="product-card-footer">
+                                        <div class="product-card-price">
+                                            <span class="product-card-price-label">{{ __('common.points') }}</span>
+                                            <span class="product-card-price-value">{{ number_format(Helper::getProductPriceByCurrency('USD', $product), 0) }}</span>
+                                        </div>
+                                        <div class="product-card-actions">
+                                            <a href="{{ route('product-detail', $product->slug) }}" class="product-explore-btn">
+                                                {{ __('common.explore') }}
+                                                <i class="fal fa-arrow-right"></i>
+                                            </a>
+                                            <form action="{{route('single-add-to-cart')}}" method="POST" class="m-0">
+                                                @csrf
+                                                <input type="hidden" name="quant[1]" class="qty-input" value="1">
+                                                <input type="hidden" name="slug" value="{{$product->slug}}">
+                                                <button type="submit" class="product-card-btn">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <circle cx="9" cy="21" r="1"/>
+                                                        <circle cx="20" cy="21" r="1"/>
+                                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                                                    </svg>
+                                                    {{ __('common.add_to_cart') }}
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
-            
-            @if(count($products) >= 6)
-                <div class="view-all-container">
-                    <a href="#" class="view-all-btn">
-                        View All Services
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            @endif
+
         @else
             <div class="no-products">
                 <div class="no-products-icon">
@@ -647,48 +747,7 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const pills = document.querySelectorAll('.category-pill');
-    const cards = document.querySelectorAll('.product-card-new');
-
-    pills.forEach(pill => {
-        pill.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            // Remove active class from all pills
-            pills.forEach(p => p.classList.remove('active'));
-            // Add active class to clicked pill
-            this.classList.add('active');
-
-            const filter = this.getAttribute('data-filter');
-
-            cards.forEach(card => {
-                if (filter === 'all') {
-                    card.style.display = 'block';
-                    card.style.animation = 'fadeIn 0.4s ease forwards';
-                } else {
-                    const cardCategory = card.getAttribute('data-category');
-                    if (cardCategory === filter) {
-                        card.style.display = 'block';
-                        card.style.animation = 'fadeIn 0.4s ease forwards';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                }
-            });
-        });
-    });
-});
-
-// Add fadeIn animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-`;
-document.head.appendChild(style);
+// Compact and premium page setup
 </script>
 @endpush
 
