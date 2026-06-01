@@ -286,6 +286,9 @@ return [
 
     //user dashboard page content starts here
     'order_history' => 'Order History',
+    'points_history' => 'Points History',
+    'points_purchased' => 'Points Purchased',
+    'points_redeemed' => 'Points Redeemed',
     'change_password' => 'Change Password',
     'logout' => 'Logout',
     'serial_number' => 'S.No.',

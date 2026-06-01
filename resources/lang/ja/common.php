@@ -292,6 +292,9 @@ return [
 
     //user dashboard page content starts here
     'order_history' => '注文履歴',
+    'points_history' => 'ポイント履歴',
+    'points_purchased' => '購入したポイント',
+    'points_redeemed' => '引き換えたポイント',
     'change_password' => 'パスワードを変更',
     'logout' => 'ログアウト',
     'serial_number' => 'S.No.',
