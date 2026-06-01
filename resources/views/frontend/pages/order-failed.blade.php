@@ -2,421 +2,344 @@
 @section('title', 'Order Failed')
 @push('styles')
 <style>
-/* Order Failed Hero Banner */
-.order-failed-hero {
-    position: relative;
-    min-height: 350px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: var(--ws-bg-dark);
-    margin-top: 80px;
+/* Order Failed - Gaming HUD Theme */
+.order-result-section {
+    padding: 64px 0 96px !important;
+    background-color: #f6f7f2 !important;
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(223, 255, 0, 0.04) 0%, transparent 80%),
+        repeating-linear-gradient(90deg, rgba(8, 10, 12, 0.015) 0 1px, transparent 1px 40px),
+        repeating-linear-gradient(0deg, rgba(8, 10, 12, 0.015) 0 1px, transparent 1px 40px) !important;
+    position: relative !important;
+    min-height: 60vh !important;
 }
 
-.order-failed-hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('../media/blogs/bd-1.png') center/cover no-repeat;
-    opacity: 0.2;
+.order-result-card {
+    max-width: 720px !important;
+    margin: 0 auto !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(8, 10, 12, 0.08) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 15px 45px rgba(8, 10, 12, 0.04) !important;
+    overflow: hidden !important;
+    position: relative !important;
 }
 
-.order-failed-hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(15, 15, 35, 0.95) 50%, rgba(239, 68, 68, 0.1) 100%);
+.order-result-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 4px !important;
+    background: linear-gradient(90deg, #ef4444, #dc2626, #ef4444) !important;
+    background-size: 200% 100% !important;
+    animation: result-gradient-slide 3s ease infinite !important;
 }
 
-.order-failed-particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-}
-
-.failed-particle {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: #ef4444;
-    border-radius: 50%;
-    opacity: 0;
-    animation: float-failed 6s ease-in-out infinite;
-}
-
-.failed-particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-.failed-particle:nth-child(2) { left: 25%; top: 60%; animation-delay: 1s; }
-.failed-particle:nth-child(3) { left: 50%; top: 30%; animation-delay: 0.5s; }
-.failed-particle:nth-child(4) { left: 70%; top: 70%; animation-delay: 1.5s; }
-.failed-particle:nth-child(5) { left: 85%; top: 25%; animation-delay: 2s; }
-.failed-particle:nth-child(6) { left: 40%; top: 80%; animation-delay: 0.8s; }
-
-@keyframes float-failed {
-    0%, 100% {
-        transform: translateY(0) translateX(0) scale(1);
-        opacity: 0;
-    }
-    25% {
-        opacity: 0.8;
-    }
-    50% {
-        transform: translateY(-40px) translateX(20px) scale(1.5);
-        opacity: 1;
-        box-shadow: 0 0 20px #ef4444;
-    }
-    75% {
-        opacity: 0.6;
-    }
-}
-
-.order-failed-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 60px 20px;
-}
-
-.failed-icon {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px;
-    box-shadow: 0 0 50px rgba(239, 68, 68, 0.6);
-    animation: pulse-failed 2s ease-in-out infinite;
-}
-
-@keyframes pulse-failed {
-    0%, 100% {
-        box-shadow: 0 0 50px rgba(239, 68, 68, 0.6);
-        transform: scale(1);
-    }
-    50% {
-        box-shadow: 0 0 80px rgba(239, 68, 68, 0.9), 0 0 100px rgba(239, 68, 68, 0.4);
-        transform: scale(1.05);
-    }
-}
-
-.failed-icon svg {
-    width: 50px;
-    height: 50px;
-    color: white;
-}
-
-.order-failed-title {
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 42px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, #ef4444 0%, #f87171 50%, #fca5a5 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.5));
-}
-
-.order-failed-subtitle {
-    font-size: 18px;
-    color: var(--ws-text-muted);
-    margin-bottom: 0;
-}
-
-/* Order Details Card */
-.order-failed-body {
-    padding: 60px 0;
-    background: var(--ws-bg-dark);
-    min-height: 60vh;
-}
-
-.order-failed-card {
-    background: var(--ws-bg-card);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 24px;
-    padding: 48px;
-    position: relative;
-    overflow: hidden;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.order-failed-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #ef4444, #dc2626, #ef4444);
-    background-size: 200% 100%;
-    animation: gradient-slide 3s ease infinite;
-}
-
-@keyframes gradient-slide {
+@keyframes result-gradient-slide {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-.order-error-box {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 32px;
-    text-align: center;
+.order-result-head {
+    text-align: center !important;
+    padding: 48px 40px 32px !important;
 }
 
-.order-error-label {
-    font-size: 14px;
-    color: var(--ws-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-    font-weight: 600;
+.order-result-icon {
+    width: 96px !important;
+    height: 96px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto 24px !important;
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    box-shadow: 0 0 40px rgba(239, 68, 68, 0.35) !important;
+    animation: result-pulse-failed 2.4s ease-in-out infinite !important;
 }
 
-.order-error-message {
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: #ef4444;
-    text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+@keyframes result-pulse-failed {
+    0%, 100% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.35); transform: scale(1); }
+    50% { box-shadow: 0 0 60px rgba(239, 68, 68, 0.55); transform: scale(1.04); }
 }
 
-.order-message {
-    text-align: center;
-    margin-bottom: 32px;
+.order-result-icon svg {
+    width: 44px !important;
+    height: 44px !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
 }
 
-.order-message h3 {
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 24px;
-    color: var(--ws-text-primary);
-    margin-bottom: 16px;
+.order-result-title {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    color: #0b0d10 !important;
+    margin: 0 0 10px !important;
 }
 
-.order-message h5 {
-    font-size: 16px;
-    color: var(--ws-text-muted);
-    line-height: 1.6;
-    margin-bottom: 12px;
+.order-result-title span {
+    color: #dc2626 !important;
 }
 
-.order-message ul {
-    list-style: none;
-    padding: 0;
-    margin: 16px 0;
-    text-align: left;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+.order-result-subtitle {
+    font-size: 15px !important;
+    color: rgba(11, 13, 16, 0.55) !important;
+    margin: 0 !important;
 }
 
-.order-message ul li {
-    padding: 8px 0;
-    color: var(--ws-text-muted);
-    font-size: 15px;
-    line-height: 1.6;
-    border-bottom: 1px solid rgba(239, 68, 68, 0.1);
+.order-result-body {
+    padding: 0 40px 48px !important;
 }
 
-.order-message ul li:before {
-    content: '• ';
-    color: #ef4444;
-    margin-right: 10px;
-    font-weight: 700;
+/* Status box */
+.order-status-box {
+    background: rgba(239, 68, 68, 0.07) !important;
+    border: 1px solid rgba(239, 68, 68, 0.25) !important;
+    border-radius: 16px !important;
+    padding: 22px !important;
+    margin-bottom: 28px !important;
+    text-align: center !important;
 }
 
-.order-message p {
-    font-size: 15px;
-    color: var(--ws-text-muted);
-    margin-top: 16px;
+.order-status-label {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 12px !important;
+    color: rgba(11, 13, 16, 0.5) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 8px !important;
+    font-weight: 700 !important;
 }
 
-.order-message a {
-    color: var(--ws-primary);
-    text-decoration: none;
-    transition: all 0.3s ease;
+.order-status-value {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 900 !important;
+    color: #dc2626 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
 }
 
-.order-message a:hover {
-    text-decoration: underline;
+.order-result-message {
+    text-align: center !important;
+    margin-bottom: 32px !important;
 }
 
-.order-failed-actions {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
+.order-result-message h3 {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #0b0d10 !important;
+    margin-bottom: 14px !important;
 }
 
-.btn-failed-gaming {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 32px;
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    border: none;
-    border-radius: 14px;
-    color: white;
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+.order-result-message h5 {
+    font-size: 15px !important;
+    color: rgba(11, 13, 16, 0.6) !important;
+    line-height: 1.6 !important;
+    margin-bottom: 10px !important;
 }
 
-.btn-failed-gaming:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(239, 68, 68, 0.6);
+.order-result-message ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 16px auto !important;
+    text-align: left !important;
+    max-width: 460px !important;
 }
 
-.btn-secondary-failed {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 32px;
-    background: transparent;
-    border: 2px solid rgba(239, 68, 68, 0.5);
-    border-radius: 14px;
-    color: #f87171;
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
+.order-result-message ul li {
+    padding: 10px 0 !important;
+    color: rgba(11, 13, 16, 0.65) !important;
+    font-size: 14.5px !important;
+    line-height: 1.6 !important;
+    border-bottom: 1px solid rgba(8, 10, 12, 0.06) !important;
 }
 
-.btn-secondary-failed:hover {
-    background: rgba(239, 68, 68, 0.1);
-    border-color: #ef4444;
-    transform: translateY(-3px);
+.order-result-message ul li:before {
+    content: '' !important;
+    display: inline-block !important;
+    width: 7px !important;
+    height: 7px !important;
+    background: #ef4444 !important;
+    border-radius: 50% !important;
+    margin-right: 12px !important;
+    vertical-align: middle !important;
+}
+
+.order-result-message p {
+    font-size: 14.5px !important;
+    color: rgba(11, 13, 16, 0.55) !important;
+    margin-top: 14px !important;
+}
+
+.order-result-message a {
+    color: #6d7f00 !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.order-result-message a:hover {
+    text-decoration: underline !important;
+}
+
+/* Actions */
+.order-result-actions {
+    display: flex !important;
+    gap: 14px !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+}
+
+.btn-result-primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 15px 30px !important;
+    background: #0b0d10 !important;
+    border: 1px solid #0b0d10 !important;
+    border-radius: 12px !important;
+    color: #dfff00 !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    box-shadow: 0 6px 20px rgba(8, 10, 12, 0.15) !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+.btn-result-primary:hover {
+    background: #dfff00 !important;
+    color: #0b0d10 !important;
+    border-color: #dfff00 !important;
+    box-shadow: 0 10px 25px rgba(223, 255, 0, 0.25) !important;
+    transform: translateY(-2px) !important;
+}
+
+.btn-result-secondary {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 15px 30px !important;
+    background: transparent !important;
+    border: 1px solid rgba(8, 10, 12, 0.18) !important;
+    border-radius: 12px !important;
+    color: #0b0d10 !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+.btn-result-secondary:hover {
+    border-color: #6d7f00 !important;
+    color: #6d7f00 !important;
+    transform: translateY(-2px) !important;
+}
+
+.btn-result-primary svg,
+.btn-result-secondary svg {
+    width: 18px !important;
+    height: 18px !important;
+    stroke: currentColor !important;
 }
 
 @media (max-width: 768px) {
-    .order-failed-hero {
-        min-height: 280px;
-        margin-top: 70px;
-    }
-
-    .order-failed-title {
-        font-size: 28px;
-        letter-spacing: 2px;
-    }
-
-    .order-failed-card {
-        padding: 32px 24px;
-        margin: 0 16px;
-    }
-
-    .order-error-message {
-        font-size: 16px;
-    }
-
-    .failed-icon {
-        width: 80px;
-        height: 80px;
-    }
-
-    .failed-icon svg {
-        width: 40px;
-        height: 40px;
-    }
-
-    .order-failed-actions {
-        flex-direction: column;
-    }
-
-    .btn-failed-gaming,
-    .btn-secondary-failed {
-        width: 100%;
-        justify-content: center;
-    }
+    .order-result-section { padding: 40px 0 64px !important; }
+    .order-result-card { margin: 0 16px !important; }
+    .order-result-head { padding: 36px 24px 24px !important; }
+    .order-result-body { padding: 0 24px 36px !important; }
+    .order-result-title { font-size: 24px !important; }
+    .order-status-value { font-size: 20px !important; }
+    .order-result-actions { flex-direction: column !important; }
+    .btn-result-primary, .btn-result-secondary { width: 100% !important; justify-content: center !important; }
 }
 </style>
 @endpush
 
 @section('main-content')
 
-<!-- Order Failed Hero -->
-<div class="order-failed-hero">
-    <div class="order-failed-hero-bg"></div>
-    <div class="order-failed-hero-overlay"></div>
-    <div class="order-failed-particles">
-        <div class="failed-particle"></div>
-        <div class="failed-particle"></div>
-        <div class="failed-particle"></div>
-        <div class="failed-particle"></div>
-        <div class="failed-particle"></div>
-        <div class="failed-particle"></div>
-    </div>
-    <div class="order-failed-content">
-        <div class="failed-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
+<!-- Page Header Band -->
+<div class="about-title-band">
+    <div class="about-hud-grid"></div>
+    <div class="about-hud-glow"></div>
+    <div class="about-hud-decor border-t"></div>
+    <div class="about-hud-decor border-b"></div>
+
+    <div class="container position-relative z-1">
+        <h1 class="about-hud-title mb-3 animate-fade-in-up">
+            {{ __('common.payment_unsuccessful') }}
+        </h1>
+
+        <div class="about-hud-breadcrumb-capsule animate-fade-in-up delay-1">
+            <a href="{{ route('home') }}" class="hud-breadcrumb-link">
+                <i class="fas fa-home me-2"></i>{{ __('common.home') }}
+            </a>
+            <span class="hud-breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span class="hud-breadcrumb-current">{{ __('common.payment_unsuccessful') }}</span>
         </div>
-        <h1 class="order-failed-title">{{ __('common.payment_unsuccessful') }}</h1>
-        <p class="order-failed-subtitle">{{ __('common.payment_error') }}</p>
     </div>
 </div>
 
 <!-- Order Failed Body -->
-<div class="order-failed-body">
+<section class="order-result-section">
     <div class="container">
-        <div class="order-failed-card">
-            <div class="order-error-box">
-                <div class="order-error-label">{{ __('common.payment_status') }}</div>
-                <div class="order-error-message">FAILED</div>
-            </div>
-
-            <div class="order-message">
-                <h3>{{ __('common.payment_failure_message') }}</h3>
-                <h5>{{ __('common.what_you_can_do') }}</h5>
-                <ul>
-                    <li>{{ __('common.check_payment_details') }}</li>
-                    <li>{{ __('common.contact_bank') }}</li>
-                    <li>{{ __('common.try_different_payment') }}</li>
-                </ul>
-
-                <h5 style="margin-top: 24px;">{{ __('common.need_assistance') }}</h5>
-                <p>{{ __('common.reach_out') }} <a href="mailto:{{ $misc['Company Email'] ?? __('common.company_email') }}">{{ $misc['Company Email'] ?? __('common.company_email') }}</a>. {{ __('common.we_are_here') }}</p>
-            </div>
-
-            <div class="order-failed-actions">
-                
-                <a href="{{ route('home') }}" class="btn-secondary-failed">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        <div class="order-result-card">
+            <div class="order-result-head">
+                <div class="order-result-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
-                    {{ __('common.go_to_homepage') }}
-                </a>
+                </div>
+                <h1 class="order-result-title">{{ __('common.payment_unsuccessful') }}</h1>
+                <p class="order-result-subtitle">{{ __('common.payment_error') }}</p>
+            </div>
+
+            <div class="order-result-body">
+                <div class="order-status-box">
+                    <div class="order-status-label">{{ __('common.payment_status') }}</div>
+                    <div class="order-status-value">FAILED</div>
+                </div>
+
+                <div class="order-result-message">
+                    <h3>{{ __('common.payment_failure_message') }}</h3>
+                    <h5>{{ __('common.what_you_can_do') }}</h5>
+                    <ul>
+                        <li>{{ __('common.check_payment_details') }}</li>
+                        <li>{{ __('common.contact_bank') }}</li>
+                        <li>{{ __('common.try_different_payment') }}</li>
+                    </ul>
+
+                    <h5 style="margin-top: 24px;">{{ __('common.need_assistance') }}</h5>
+                    <p>{{ __('common.reach_out') }} <a href="mailto:{{ $misc['Company Email'] ?? __('common.company_email') }}">{{ $misc['Company Email'] ?? __('common.company_email') }}</a>. {{ __('common.we_are_here') }}</p>
+                </div>
+
+                <div class="order-result-actions">
+                    <a href="{{ route('home') }}" class="btn-result-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        {{ __('common.go_to_homepage') }}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <!-- Back To Top -->
 <div id="back-to-top" class="back-to-top">

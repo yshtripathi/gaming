@@ -2,321 +2,229 @@
 @section('title', 'Order Success')
 @push('styles')
 <style>
-/* Order Success Hero Banner */
-.order-success-hero {
-    position: relative;
-    min-height: 350px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: var(--ws-bg-dark);
-    margin-top: 80px;
+/* Order Success - Gaming HUD Theme */
+.order-result-section {
+    padding: 64px 0 96px !important;
+    background-color: #f6f7f2 !important;
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(223, 255, 0, 0.04) 0%, transparent 80%),
+        repeating-linear-gradient(90deg, rgba(8, 10, 12, 0.015) 0 1px, transparent 1px 40px),
+        repeating-linear-gradient(0deg, rgba(8, 10, 12, 0.015) 0 1px, transparent 1px 40px) !important;
+    position: relative !important;
+    min-height: 60vh !important;
 }
 
-.order-success-hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('../media/blogs/bd-1.png') center/cover no-repeat;
-    opacity: 0.2;
+.order-result-card {
+    max-width: 720px !important;
+    margin: 0 auto !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(8, 10, 12, 0.08) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 15px 45px rgba(8, 10, 12, 0.04) !important;
+    overflow: hidden !important;
+    position: relative !important;
 }
 
-.order-success-hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(15, 15, 35, 0.95) 50%, rgba(34, 197, 94, 0.1) 100%);
+.order-result-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 4px !important;
+    background: linear-gradient(90deg, #22c55e, #16a34a, #22c55e) !important;
+    background-size: 200% 100% !important;
+    animation: result-gradient-slide 3s ease infinite !important;
 }
 
-.order-success-particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-}
-
-.success-particle {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: #22c55e;
-    border-radius: 50%;
-    opacity: 0;
-    animation: float-success 6s ease-in-out infinite;
-}
-
-.success-particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-.success-particle:nth-child(2) { left: 25%; top: 60%; animation-delay: 1s; }
-.success-particle:nth-child(3) { left: 50%; top: 30%; animation-delay: 0.5s; }
-.success-particle:nth-child(4) { left: 70%; top: 70%; animation-delay: 1.5s; }
-.success-particle:nth-child(5) { left: 85%; top: 25%; animation-delay: 2s; }
-.success-particle:nth-child(6) { left: 40%; top: 80%; animation-delay: 0.8s; }
-
-@keyframes float-success {
-    0%, 100% {
-        transform: translateY(0) translateX(0) scale(1);
-        opacity: 0;
-    }
-    25% {
-        opacity: 0.8;
-    }
-    50% {
-        transform: translateY(-40px) translateX(20px) scale(1.5);
-        opacity: 1;
-        box-shadow: 0 0 20px #22c55e;
-    }
-    75% {
-        opacity: 0.6;
-    }
-}
-
-.order-success-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 60px 20px;
-}
-
-.success-icon {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px;
-    box-shadow: 0 0 50px rgba(34, 197, 94, 0.6);
-    animation: pulse-success 2s ease-in-out infinite;
-}
-
-@keyframes pulse-success {
-    0%, 100% { 
-        box-shadow: 0 0 50px rgba(34, 197, 94, 0.6);
-        transform: scale(1);
-    }
-    50% { 
-        box-shadow: 0 0 80px rgba(34, 197, 94, 0.9), 0 0 100px rgba(34, 197, 94, 0.4);
-        transform: scale(1.05);
-    }
-}
-
-.success-icon svg {
-    width: 50px;
-    height: 50px;
-    color: white;
-}
-
-.order-success-title {
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 42px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, #22c55e 0%, #4ade80 50%, #86efac 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.5));
-}
-
-.order-success-subtitle {
-    font-size: 18px;
-    color: var(--ws-text-muted);
-    margin-bottom: 0;
-}
-
-/* Order Details Card */
-.order-success-body {
-    padding: 60px 0;
-    background: var(--ws-bg-dark);
-    min-height: 60vh;
-}
-
-.order-success-card {
-    background: var(--ws-bg-card);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    border-radius: 24px;
-    padding: 48px;
-    position: relative;
-    overflow: hidden;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.order-success-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #22c55e, #16a34a, #22c55e);
-    background-size: 200% 100%;
-    animation: gradient-slide 3s ease infinite;
-}
-
-@keyframes gradient-slide {
+@keyframes result-gradient-slide {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
+.order-result-head {
+    text-align: center !important;
+    padding: 48px 40px 32px !important;
+}
+
+.order-result-icon {
+    width: 96px !important;
+    height: 96px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto 24px !important;
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+    box-shadow: 0 0 40px rgba(34, 197, 94, 0.35) !important;
+    animation: result-pulse-success 2.4s ease-in-out infinite !important;
+}
+
+@keyframes result-pulse-success {
+    0%, 100% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.35); transform: scale(1); }
+    50% { box-shadow: 0 0 60px rgba(34, 197, 94, 0.55); transform: scale(1.04); }
+}
+
+.order-result-icon svg {
+    width: 46px !important;
+    height: 46px !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+}
+
+.order-result-title {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    color: #0b0d10 !important;
+    margin: 0 0 10px !important;
+}
+
+.order-result-title span {
+    color: #16a34a !important;
+}
+
+.order-result-subtitle {
+    font-size: 15px !important;
+    color: rgba(11, 13, 16, 0.55) !important;
+    margin: 0 !important;
+}
+
+.order-result-body {
+    padding: 0 40px 48px !important;
+}
+
+/* Invoice box */
 .order-invoice-box {
-    background: rgba(34, 197, 94, 0.1);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 32px;
-    text-align: center;
+    background: rgba(34, 197, 94, 0.07) !important;
+    border: 1px solid rgba(34, 197, 94, 0.25) !important;
+    border-radius: 16px !important;
+    padding: 22px !important;
+    margin-bottom: 28px !important;
+    text-align: center !important;
 }
 
 .order-invoice-label {
-    font-size: 14px;
-    color: var(--ws-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-    font-weight: 600;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 12px !important;
+    color: rgba(11, 13, 16, 0.5) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 8px !important;
+    font-weight: 700 !important;
 }
 
 .order-invoice-number {
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #4ade80;
-    text-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
-    word-break: break-all;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 26px !important;
+    font-weight: 900 !important;
+    color: #16a34a !important;
+    word-break: break-all !important;
 }
 
-.order-message {
-    text-align: center;
-    margin-bottom: 32px;
+.order-result-message {
+    text-align: center !important;
+    margin-bottom: 32px !important;
 }
 
-.order-message h3 {
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 24px;
-    color: var(--ws-text-primary);
-    margin-bottom: 16px;
+.order-result-message h3 {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #0b0d10 !important;
+    margin-bottom: 14px !important;
 }
 
-.order-message h5 {
-    font-size: 16px;
-    color: var(--ws-text-muted);
-    line-height: 1.6;
+.order-result-message h5 {
+    font-size: 15px !important;
+    color: rgba(11, 13, 16, 0.6) !important;
+    line-height: 1.6 !important;
 }
 
-.order-message p {
-    font-size: 15px;
-    color: var(--ws-text-muted);
-    margin-top: 16px;
+.order-result-message p {
+    font-size: 14.5px !important;
+    color: rgba(11, 13, 16, 0.55) !important;
+    margin-top: 14px !important;
 }
 
-.order-success-actions {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
+/* Actions */
+.order-result-actions {
+    display: flex !important;
+    gap: 14px !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
 }
 
-.btn-success-gaming {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 32px;
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    border: none;
-    border-radius: 14px;
-    color: white;
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+.btn-result-primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 15px 30px !important;
+    background: #0b0d10 !important;
+    border: 1px solid #0b0d10 !important;
+    border-radius: 12px !important;
+    color: #dfff00 !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    box-shadow: 0 6px 20px rgba(8, 10, 12, 0.15) !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
 
-.btn-success-gaming:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(34, 197, 94, 0.6);
+.btn-result-primary:hover {
+    background: #dfff00 !important;
+    color: #0b0d10 !important;
+    border-color: #dfff00 !important;
+    box-shadow: 0 10px 25px rgba(223, 255, 0, 0.25) !important;
+    transform: translateY(-2px) !important;
 }
 
-.btn-secondary-gaming {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 32px;
-    background: transparent;
-    border: 2px solid rgba(34, 197, 94, 0.5);
-    border-radius: 14px;
-    color: #4ade80;
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
+.btn-result-secondary {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 15px 30px !important;
+    background: transparent !important;
+    border: 1px solid rgba(8, 10, 12, 0.18) !important;
+    border-radius: 12px !important;
+    color: #0b0d10 !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
 
-.btn-secondary-gaming:hover {
-    background: rgba(34, 197, 94, 0.1);
-    border-color: #22c55e;
-    transform: translateY(-3px);
+.btn-result-secondary:hover {
+    border-color: #6d7f00 !important;
+    color: #6d7f00 !important;
+    transform: translateY(-2px) !important;
+}
+
+.btn-result-primary svg,
+.btn-result-secondary svg {
+    width: 18px !important;
+    height: 18px !important;
+    stroke: currentColor !important;
 }
 
 @media (max-width: 768px) {
-    .order-success-hero {
-        min-height: 280px;
-        margin-top: 70px;
-    }
-    
-    .order-success-title {
-        font-size: 28px;
-        letter-spacing: 2px;
-    }
-    
-    .order-success-card {
-        padding: 32px 24px;
-        margin: 0 16px;
-    }
-    
-    .order-invoice-number {
-        font-size: 22px;
-    }
-    
-    .success-icon {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .success-icon svg {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .order-success-actions {
-        flex-direction: column;
-    }
-    
-    .btn-success-gaming,
-    .btn-secondary-gaming {
-        width: 100%;
-        justify-content: center;
-    }
+    .order-result-section { padding: 40px 0 64px !important; }
+    .order-result-card { margin: 0 16px !important; }
+    .order-result-head { padding: 36px 24px 24px !important; }
+    .order-result-body { padding: 0 24px 36px !important; }
+    .order-result-title { font-size: 24px !important; }
+    .order-invoice-number { font-size: 21px !important; }
+    .order-result-actions { flex-direction: column !important; }
+    .btn-result-primary, .btn-result-secondary { width: 100% !important; justify-content: center !important; }
 }
 </style>
 @endpush
@@ -327,66 +235,76 @@ use App\Models\Order;
 $order = Order::where('trans_id', $transaction_id)->first();
 @endphp
 
-<!-- Order Success Hero -->
-<div class="order-success-hero">
-    <div class="order-success-hero-bg"></div>
-    <div class="order-success-hero-overlay"></div>
-    <div class="order-success-particles">
-        <div class="success-particle"></div>
-        <div class="success-particle"></div>
-        <div class="success-particle"></div>
-        <div class="success-particle"></div>
-        <div class="success-particle"></div>
-        <div class="success-particle"></div>
-    </div>
-    <div class="order-success-content">
-        <div class="success-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
+<!-- Page Header Band -->
+<div class="about-title-band">
+    <div class="about-hud-grid"></div>
+    <div class="about-hud-glow"></div>
+    <div class="about-hud-decor border-t"></div>
+    <div class="about-hud-decor border-b"></div>
+
+    <div class="container position-relative z-1">
+        <h1 class="about-hud-title mb-3 animate-fade-in-up">
+            {{ __('common.order_successful') }}
+        </h1>
+
+        <div class="about-hud-breadcrumb-capsule animate-fade-in-up delay-1">
+            <a href="{{ route('home') }}" class="hud-breadcrumb-link">
+                <i class="fas fa-home me-2"></i>{{ __('common.home') }}
+            </a>
+            <span class="hud-breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span class="hud-breadcrumb-current">{{ __('common.order_successful') }}</span>
         </div>
-        <h1 class="order-success-title">{{ __('common.order_successful') }}</h1>
-        
     </div>
 </div>
 
 <!-- Order Success Body -->
-<div class="order-success-body">
+<section class="order-result-section">
     <div class="container">
-        <div class="order-success-card">
-            <div class="order-invoice-box">
-                <div class="order-invoice-label">{{ __('common.invoice_number') }}</div>
-                <div class="order-invoice-number">{{ $transaction_id }}</div>
-            </div>
-            
-            <div class="order-message">
-                <h3>{{ __('common.thank_you_order') }}</h3>
-                <h5>{{ __('common.order_confirmation') }} {{ $transaction_id }}</h5>
-                <p>{{ __('common.team_contact') }}</p>
-            </div>
-            
-            <div class="order-success-actions">
-                @if($email_status=='inactive')
-                <a href="{{route('order.pdf',$order->id)}}" class="btn-success-gaming">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
+        <div class="order-result-card">
+            <div class="order-result-head">
+                <div class="order-result-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
-                    {{ __('common.download_invoice') }}
-                </a>
-                @endif
-                <a href="{{ route('home') }}" class="btn-secondary-gaming">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
-                    {{ __('common.go_to_homepage') }}
-                </a>
+                </div>
+                <h1 class="order-result-title">{{ __('common.order_successful') }}</h1>
+            </div>
+
+            <div class="order-result-body">
+                <div class="order-invoice-box">
+                    <div class="order-invoice-label">{{ __('common.invoice_number') }}</div>
+                    <div class="order-invoice-number">{{ $transaction_id }}</div>
+                </div>
+
+                <div class="order-result-message">
+                    <h3>{{ __('common.thank_you_order') }}</h3>
+                    <h5>{{ __('common.order_confirmation') }} {{ $transaction_id }}</h5>
+                    <p>{{ __('common.team_contact') }}</p>
+                </div>
+
+                <div class="order-result-actions">
+                    @if($email_status=='inactive')
+                    <a href="{{ route('order.pdf', $order->id) }}" class="btn-result-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        {{ __('common.download_invoice') }}
+                    </a>
+                    @endif
+                    <a href="{{ route('home') }}" class="btn-result-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        {{ __('common.go_to_homepage') }}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <!-- Back To Top -->
 <div id="back-to-top" class="back-to-top">
