@@ -3,576 +3,540 @@
 
 @push('styles')
 <style>
-/* Cart Hero Section */
-.cart-hero {
-    position: relative;
-    padding: 100px 0 60px;
-    background: linear-gradient(135deg, var(--ws-bg-dark, #0D0D1A) 0%, #1a1040 50%, var(--ws-bg-dark, #0D0D1A) 100%);
-    overflow: hidden;
-    margin-top: 80px;
-}
-
-.cart-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(ellipse at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-.cart-hero-content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-}
-
-.cart-hero-title {
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 48px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    background: linear-gradient(135deg, var(--ws-primary, #8B5CF6), var(--ws-accent, #A855F7), #c084fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 40px rgba(124, 58, 237, 0.5);
-    margin-bottom: 16px;
-}
-
-.cart-hero-subtitle {
-    font-size: 14px;
-    color: var(--ws-text-muted, #A0AEC0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-}
-
-.cart-hero-subtitle a {
-    color: var(--ws-text-muted, #A0AEC0);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.cart-hero-subtitle a:hover {
-    color: var(--ws-primary, #8B5CF6);
-}
-
-.cart-hero-subtitle span {
-    color: var(--ws-primary, #8B5CF6);
-}
-
-/* Cart Layout */
+/* Premium Gaming HUD Cart Styles with Theme-Consistent Styling */
 .cart-section {
-    padding: 60px 0;
-    background: var(--ws-bg-dark);
+    padding: 64px 0 96px !important;
+    background-color: #f6f7f2 !important; /* Cyberpunk light gray background */
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(223, 255, 0, 0.04) 0%, transparent 80%),
+        repeating-linear-gradient(90deg, rgba(8, 10, 12, 0.015) 0 1px, transparent 1px 40px),
+        repeating-linear-gradient(0deg, rgba(8, 10, 12, 0.015) 0 1px, transparent 1px 40px) !important;
+    position: relative !important;
     min-height: 70vh;
 }
 
+.cart-continue {
+    margin-bottom: 32px !important;
+}
+
+.cart-continue-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: #0b0d10 !important; /* Premium Obsidian dark mode button */
+    border: 1px solid #0b0d10 !important;
+    border-radius: 12px !important;
+    color: #dfff00 !important; /* Acid Lime text */
+    padding: 12px 24px !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    box-shadow: 0 4px 15px rgba(8, 10, 12, 0.12) !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+.cart-continue-btn:hover {
+    background: #dfff00 !important;
+    color: #0b0d10 !important;
+    border-color: #dfff00 !important;
+    box-shadow: 0 8px 20px rgba(223, 255, 0, 0.25) !important;
+    transform: translateY(-1px) !important;
+}
+
+.cart-continue-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+    stroke: currentColor !important;
+}
+
+/* Cart Grid */
 .cart-grid {
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 40px;
-    align-items: start;
+    display: grid !important;
+    grid-template-columns: 1fr 380px !important;
+    gap: 36px !important;
+    align-items: start !important;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
     .cart-grid {
-        grid-template-columns: 1fr 340px;
-        gap: 30px;
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
     }
 }
 
-@media (max-width: 992px) {
-    .cart-grid {
-        grid-template-columns: 1fr;
-    }
+/* Cart Table */
+.cart-table {
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(8, 10, 12, 0.08) !important;
+    box-shadow: 0 10px 30px rgba(8, 10, 12, 0.02) !important;
+    overflow: hidden !important;
 }
 
-/* Cart Products Column */
-.cart-products {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.cart-table-head,
+.cart-table-row {
+    display: grid !important;
+    grid-template-columns: 1fr 180px 140px 120px !important;
+    gap: 18px !important;
+    align-items: center !important;
+    padding: 18px 26px !important;
 }
 
-/* Cart Product Card */
-.cart-product-card {
-    display: grid;
-    grid-template-columns: 140px 1fr auto;
-    gap: 24px;
-    align-items: center;
-    background: var(--ws-bg-card);
-    border-radius: 20px;
-    padding: 24px;
-    border: 1px solid var(--ws-border-light);
-    transition: all 0.3s ease;
+.cart-table-head {
+    background: #0b0d10 !important;
+    border-bottom: 2px solid #6d7f00 !important;
+    padding: 16px 26px !important;
 }
 
-.cart-product-card:hover {
-    border-color: var(--ws-primary);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+.cart-th {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    color: #dfff00 !important;
+}
+
+.cart-th-center {
+    text-align: center !important;
+}
+
+.cart-table-row {
+    border-bottom: 1px solid rgba(8, 10, 12, 0.06) !important;
+    transition: background 0.3s ease !important;
+}
+
+.cart-table-row:last-child {
+    border-bottom: none !important;
+}
+
+.cart-table-row:hover {
+    background: rgba(109, 127, 0, 0.03) !important;
+}
+
+.cart-col-product {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+}
+
+.cart-col {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 @media (max-width: 768px) {
-    .cart-product-card {
-        grid-template-columns: 100px 1fr;
-        gap: 16px;
+    .cart-table-head {
+        display: none !important;
     }
-    
-    .cart-product-actions {
-        grid-column: 1 / -1;
-        justify-content: flex-end !important;
+
+    .cart-table-row {
+        grid-template-columns: 1fr auto !important;
+        gap: 10px 14px !important;
+        padding: 16px !important;
+        align-items: start !important;
+    }
+
+    .cart-col-product {
+        grid-column: 1 / -1 !important;
+    }
+
+    .cart-col-price {
+        justify-content: flex-start !important;
     }
 }
 
 .cart-product-image {
-    width: 140px;
-    height: 100px;
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--ws-bg-dark);
+    width: 84px !important;
+    height: 60px !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    background: #f6f7f2 !important;
+    border: 1px solid rgba(8, 10, 12, 0.06) !important;
 }
 
 .cart-product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
 }
 
 .cart-product-points-only {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: rgba(124, 58, 237, 0.1);
-    border: 2px dashed rgba(124, 58, 237, 0.3);
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    background: rgba(109, 127, 0, 0.06) !important;
+    border: 2px dashed rgba(109, 127, 0, 0.25) !important;
 }
 
 .cart-product-points-only svg {
-    width: 32px;
-    height: 32px;
-    color: var(--ws-primary-light);
+    width: 18px !important;
+    height: 18px !important;
+    color: #6d7f00 !important;
 }
 
 .cart-product-points-only .points-badge {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--ws-primary-light);
-    text-align: center;
-}
-
-.cart-product-info {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 9.5px !important;
+    font-weight: 800 !important;
+    color: #6d7f00 !important;
+    text-transform: uppercase !important;
 }
 
 .cart-product-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--ws-text-primary) !important;
-    line-height: 1.3;
-}
-
-.cart-product-meta {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    color: #0b0d10 !important;
+    margin: 0 !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
 }
 
 .cart-product-price {
-    font-size: 14px;
-    color: var(--ws-text-muted);
+    font-size: 13px !important;
+    color: rgba(11, 13, 16, 0.5) !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
 }
 
 .cart-product-price span {
-    color: var(--ws-primary-light);
-    font-weight: 600;
-}
-
-.cart-product-quantity {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.cart-qty-btn {
-    width: 32px;
-    height: 32px;
-    background: rgba(124, 58, 237, 0.1);
-    border: 1px solid rgba(124, 58, 237, 0.3);
-    border-radius: 8px;
-    color: var(--ws-primary-light);
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.cart-qty-btn:hover {
-    background: var(--ws-primary);
-    color: white;
-}
-
-.cart-qty-value {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--ws-text-primary);
-    min-width: 30px;
-    text-align: center;
-}
-
-.cart-product-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-    justify-content: center;
+    color: #6d7f00 !important;
+    font-weight: 700 !important;
 }
 
 .cart-product-total {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--ws-primary-light) !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 900 !important;
+    color: #0b0d10 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+}
+
+/* Mobile labels for table cells */
+.cart-cell-label {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .cart-cell-label {
+        display: inline-block !important;
+        font-family: 'Chakra Petch', sans-serif !important;
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        color: rgba(11, 13, 16, 0.4) !important;
+        margin-right: 6px !important;
+    }
 }
 
 .cart-remove-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #ef4444;
-    padding: 10px 16px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: rgba(239, 68, 68, 0.06) !important;
+    border: 1px solid rgba(239, 68, 68, 0.18) !important;
+    color: #ef4444 !important;
+    padding: 7px 12px !important;
+    border-radius: 8px !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 10.5px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    cursor: pointer !important;
 }
 
 .cart-remove-btn:hover {
-    background: #ef4444;
-    color: white;
-    border-color: #ef4444;
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    border-color: #ef4444 !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15) !important;
 }
 
 .cart-remove-btn svg {
-    width: 16px;
-    height: 16px;
+    width: 14px !important;
+    height: 14px !important;
+    stroke: currentColor !important;
 }
 
 /* Empty Cart State */
 .cart-empty {
-    text-align: center;
-    padding: 80px 40px;
-    background: var(--ws-bg-card);
-    border-radius: 24px;
-    border: 1px solid var(--ws-border-light);
+    text-align: center !important;
+    padding: 64px 32px !important;
+    background: #ffffff !important;
+    border-radius: 24px !important;
+    border: 1px solid rgba(8, 10, 12, 0.08) !important;
+    box-shadow: 0 15px 45px rgba(8, 10, 12, 0.02) !important;
 }
 
 .cart-empty-icon {
-    width: 120px;
-    height: 120px;
-    background: rgba(124, 58, 237, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 30px;
+    width: 90px !important;
+    height: 90px !important;
+    background: rgba(223, 255, 0, 0.15) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto 24px !important;
 }
 
 .cart-empty-icon svg {
-    width: 60px;
-    height: 60px;
-    color: var(--ws-primary);
+    width: 44px !important;
+    height: 44px !important;
+    color: #6d7f00 !important;
 }
 
 .cart-empty h3 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--ws-text-primary) !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    color: #0b0d10 !important;
+    text-transform: uppercase !important;
+    margin-bottom: 12px !important;
 }
 
 .cart-empty p {
-    color: var(--ws-text-muted);
-    margin-bottom: 30px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
+    color: rgba(11, 13, 16, 0.5) !important;
+    font-size: 14.5px !important;
+    margin-bottom: 28px !important;
 }
 
 .cart-empty-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(135deg, var(--ws-primary), var(--ws-accent));
-    color: white;
-    padding: 16px 32px;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    background: #0b0d10 !important;
+    border: 1px solid rgba(8, 10, 12, 0.1) !important;
+    color: #dfff00 !important;
+    padding: 14px 28px !important;
+    border-radius: 12px !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    box-shadow: 0 4px 15px rgba(8, 10, 12, 0.05) !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
 
 .cart-empty-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
-    color: white;
+    background: #dfff00 !important;
+    color: #0b0d10 !important;
+    border-color: #dfff00 !important;
+    box-shadow: 0 8px 25px rgba(223, 255, 0, 0.25) !important;
+    transform: translateY(-2px) !important;
 }
 
 /* Cart Summary Sidebar */
 .cart-summary {
-    position: sticky;
-    top: 100px;
-    background: var(--ws-bg-card);
-    border-radius: 24px;
-    border: 1px solid var(--ws-border-light);
-    overflow: hidden;
+    position: sticky !important;
+    top: 104px !important;
+    background: #ffffff !important;
+    border-radius: 24px !important;
+    border: 1px solid rgba(8, 10, 12, 0.08) !important;
+    box-shadow: 0 15px 45px rgba(8, 10, 12, 0.02) !important;
+    overflow: hidden !important;
 }
 
-.cart-summary-header {
-    background: linear-gradient(135deg, var(--ws-primary), var(--ws-accent));
-    padding: 24px;
-    text-align: center;
+.cart-summary .cart-summary-header {
+    background: #0b0d10 !important;
+    padding: 24px !important;
+    text-align: center !important;
+    border-bottom: 2px solid #6d7f00 !important;
 }
 
-.cart-summary-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: white;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.cart-summary .cart-summary-header .cart-summary-title {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    color: #dfff00 !important; /* Force Acid Lime title */
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
 }
 
-.cart-summary-title svg {
-    width: 24px;
-    height: 24px;
+.cart-summary .cart-summary-header .cart-summary-title svg {
+    width: 20px !important;
+    height: 20px !important;
+    color: #dfff00 !important;
+    stroke: #dfff00 !important;
 }
 
 .cart-summary-body {
-    padding: 30px;
+    padding: 28px !important;
 }
 
 .cart-summary-items {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 24px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--ws-border-light);
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+    padding-bottom: 24px !important;
+    border-bottom: 1px solid rgba(8, 10, 12, 0.06) !important;
 }
 
 .cart-summary-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
 }
 
 .cart-summary-item-label {
-    font-size: 14px;
-    color: var(--ws-text-muted);
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    color: rgba(11, 13, 16, 0.5) !important;
 }
 
 .cart-summary-item-value {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ws-text-secondary);
-}
-
-.cart-summary-item-value.free {
-    color: #22c55e;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 14.5px !important;
+    font-weight: 800 !important;
+    color: #0b0d10 !important;
 }
 
 .cart-summary-totals {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 30px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-bottom: 28px !important;
 }
 
 .cart-summary-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cart-summary-row .label {
-    font-size: 14px;
-    color: var(--ws-text-muted);
-}
-
-.cart-summary-row .value {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--ws-text-secondary);
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
 }
 
 .cart-summary-row.total {
-    padding-top: 16px;
-    border-top: 2px solid var(--ws-border-light);
+    padding-top: 18px !important;
+    border-top: 2px solid rgba(8, 10, 12, 0.06) !important;
 }
 
 .cart-summary-row.total .label {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--ws-text-primary);
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: #0b0d10 !important;
+    text-transform: uppercase !important;
 }
 
 .cart-summary-row.total .value {
-    font-size: 28px;
-    font-weight: 900;
-    color: var(--ws-primary-light) !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 28px !important;
+    font-weight: 900 !important;
+    color: #6d7f00 !important;
+    line-height: 1 !important;
 }
 
 .cart-checkout-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-    background: linear-gradient(135deg, var(--ws-primary), var(--ws-accent));
-    color: white;
-    padding: 18px 24px;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    background: #0b0d10 !important;
+    border: 1px solid #0b0d10 !important;
+    color: #dfff00 !important;
+    padding: 16px 24px !important;
+    border-radius: 12px !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 14.5px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    cursor: pointer !important;
+    box-shadow: 0 6px 20px rgba(8, 10, 12, 0.15) !important;
 }
 
 .cart-checkout-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 40px rgba(124, 58, 237, 0.6);
-    color: white;
+    background: #dfff00 !important;
+    color: #0b0d10 !important;
+    border-color: #dfff00 !important;
+    box-shadow: 0 10px 25px rgba(223, 255, 0, 0.25) !important;
+    transform: translateY(-2px) !important;
 }
 
 .cart-checkout-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 18px !important;
+    height: 18px !important;
+    stroke: currentColor !important;
 }
 
 .cart-continue-shopping {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: var(--ws-text-muted);
-    font-size: 14px;
-    text-decoration: none;
-    transition: color 0.3s ease;
+    display: block !important;
+    text-align: center !important;
+    margin-top: 18px !important;
+    color: rgba(11, 13, 16, 0.5) !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
 }
 
 .cart-continue-shopping:hover {
-    color: var(--ws-primary-light);
-}
-
-/* Secure checkout badge */
-.cart-secure-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 20px;
-    padding: 12px;
-    background: rgba(34, 197, 94, 0.1);
-    border-radius: 10px;
-    color: #22c55e;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.cart-secure-badge svg {
-    width: 16px;
-    height: 16px;
-}
-
-/* Continue Shopping Link */
-.cart-continue {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.cart-continue-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--ws-text-muted);
-    font-size: 14px;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.cart-continue-btn:hover {
-    color: var(--ws-primary-light);
-}
-
-.cart-continue-btn svg {
-    width: 18px;
-    height: 18px;
+    color: #6d7f00 !important;
+    text-decoration: underline !important;
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-    .cart-hero-title {
-        font-size: 32px;
-        letter-spacing: 3px;
-    }
-    
     .cart-section {
-        padding: 40px 0;
-    }
-    
-    .cart-product-card {
-        padding: 16px;
+        padding: 40px 0 64px !important;
     }
     
     .cart-summary {
-        position: static;
+        position: static !important;
     }
 }
-
 </style>
 @endpush
 
 @section('main-content')
+
+<div class="about-title-band">
+    <!-- HUD Visual Effects -->
+    <div class="about-hud-grid"></div>
+    <div class="about-hud-glow"></div>
+    <div class="about-hud-decor border-t"></div>
+    <div class="about-hud-decor border-b"></div>
+    
+    <div class="container position-relative z-1">
+        <h1 class="about-hud-title mb-3 animate-fade-in-up">
+            {{ __('common.your_cart') }}
+        </h1>
+        
+        <div class="about-hud-breadcrumb-capsule animate-fade-in-up delay-1">
+            <a href="{{ route('home') }}" class="hud-breadcrumb-link">
+                <i class="fas fa-home me-2"></i>{{ __('common.home') }}
+            </a>
+            <span class="hud-breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span class="hud-breadcrumb-current">{{ __('common.cart') }}</span>
+        </div>
+    </div>
+</div>
+
 <!-- Cart Section -->
 <section class="cart-section contact-cart-page">
     <div class="container">
-        <div class="cart-page-heading">
-            <div>
-                <div class="cart-page-kicker">{{ __('common.cart_summary') }}</div>
-                <h1>{{ __('common.your_cart') }}</h1>
-            </div>
-            <div class="cart-page-breadcrumb">
-                <a href="{{ route('home') }}">{{ __('common.home') }}</a>
-                <span>/</span>
-                <span>{{ __('common.cart') }}</span>
-            </div>
-        </div>
 
         @if(Helper::cartCount())
             <div class="cart-continue">
@@ -585,8 +549,14 @@
             </div>
             
             <div class="cart-grid">
-                <!-- Cart Products Column -->
-                <div class="cart-products">
+                <!-- Cart Products Table -->
+                <div class="cart-table">
+                    <div class="cart-table-head">
+                        <span class="cart-th">{{ __('common.product') }}</span>
+                        <span class="cart-th cart-th-center">{{ __('common.price') }}</span>
+                        <span class="cart-th cart-th-center">{{ __('common.total') }}</span>
+                        <span class="cart-th cart-th-center">{{ __('common.remove') }}</span>
+                    </div>
                     @foreach(Helper::getAllProductFromCart() as $key => $cart)
                         @php
                             $user_id = auth()->check() ? auth()->id() : session('guest');
@@ -594,32 +564,35 @@
                             $points = $cartItem ? $cartItem->points : 0;
                             $hasProduct = !empty($cart['photo']) && $cart['photo'] !== null;
                         @endphp
-                        <div class="cart-product-card">
-                            @if($hasProduct)
-                            <div class="cart-product-image">
-                                <img src="{{ asset($cart['photo']) }}" alt="{{ $cart['title'] }}" onerror="this.style.display='none'">
-                            </div>
-                            @else
-                            <div class="cart-product-image cart-product-points-only">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                                </svg>
-                                <span class="points-badge">{{ $points }} {{ __('common.points') }}</span>
-                            </div>
-                            @endif
-                            <div class="cart-product-info">
+                        <div class="cart-table-row">
+                            <div class="cart-col-product">
+                                @if($hasProduct)
+                                <div class="cart-product-image">
+                                    <img src="{{ asset($cart['photo']) }}" alt="{{ $cart['title'] }}" onerror="this.style.display='none'">
+                                </div>
+                                @else
+                                <div class="cart-product-image cart-product-points-only">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                    <span class="points-badge">{{ $points }} {{ __('common.points') }}</span>
+                                </div>
+                                @endif
                                 <h3 class="cart-product-title">{{ $cart['title'] }}</h3>
-                                <div class="cart-product-meta">
-                                    <div class="cart-product-price">
-                                        {{ $points }} {{ __('common.points') }} × 
-                                        <span>{{ Helper::getCurrencySymbol(session('currency')) }}{{ number_format($cart['price'], session('currency')=='JPY' ? 0 : 2) }}</span>
-                                    </div>
-                                </div>
                             </div>
-                            <div class="cart-product-actions">
-                                <div class="cart-product-total">
+                            <div class="cart-col cart-col-price">
+                                <span class="cart-product-price">
+                                    {{ $points }} {{ __('common.points') }} ×
+                                    <span>{{ Helper::getCurrencySymbol(session('currency')) }}{{ number_format($cart['price'], session('currency')=='JPY' ? 0 : 2) }}</span>
+                                </span>
+                            </div>
+                            <div class="cart-col cart-col-total">
+                                <span class="cart-cell-label">{{ __('common.total') }}:</span>
+                                <span class="cart-product-total">
                                     {{ Helper::getCurrencySymbol(session('currency')) }}{{ number_format($cart['amount'], session('currency')=='JPY' ? 0 : 2) }}
-                                </div>
+                                </span>
+                            </div>
+                            <div class="cart-col cart-col-action">
                                 <a href="{{ route('cart-delete', $cart->id) }}" class="cart-remove-btn">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <polyline points="3 6 5 6 21 6"/>
@@ -688,13 +661,6 @@
                         <a href="{{ route('product-lists') }}" class="cart-continue-shopping">
                             {{ __('common.continue_shopping') }}
                         </a>
-
-                        <div class="cart-secure-badge">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                            </svg>
-                            Secure Checkout
-                        </div>
                     </div>
                 </div>
             </div>
