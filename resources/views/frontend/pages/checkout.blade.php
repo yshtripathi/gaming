@@ -1204,28 +1204,28 @@ $(document).ready(function() {
 
         // Basic field validation
         if (!cardName) {
-            $("#card-name-error").text('Please enter card holder name');
+            $("#card-name-error").text("{{ __('common.card_name_required') }}");
             $("#name").focus();
             callback(false);
             return;
         }
 
         if (!cardNumber) {
-            $("#card-number-error").text('Please enter card number');
+            $("#card-number-error").text("{{ __('common.card_number_required') }}");
             $("#card_number").focus();
             callback(false);
             return;
         }
 
         if (!expMonth || !expYear) {
-            $("#card-month-error").text('Please enter valid expiry date');
+            $("#card-month-error").text("{{ __('common.card_month_required') }}");
             $("#expiry_month").focus();
             callback(false);
             return;
         }
 
         if (!cvv) {
-            $("#card-cvv-error").text('Please enter CVV');
+            $("#card-cvv-error").text("{{ __('common.card_cvv_required') }}");
             $("#cvv").focus();
             callback(false);
             return;
