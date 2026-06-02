@@ -131,6 +131,11 @@ energy (speed lines, slashes, halftone) — **all recolored into the burgundy/go
 particles, and full `prefers-reduced-motion` support. See the **"Anime / Japanese (和風)
 layer"** section in `THEME.md` for the motif map, animation system, and fonts.
 
+A **site-wide ambient video background** (`public/assets/images/background.mp4`, ~2 MB) sits
+behind every page via the layout, heavily tinted burgundy/ink so the theme and text stay
+dominant; sections go translucent over it. Poster fallback + reduced-motion + mobile
+fallback are required. Full spec in `THEME.md` → "Global video background".
+
 - [ ] **Apply the theme tokens first** — pull the CSS variables from `THEME.md` into the
       shared stylesheet, then style sections with the vars (no hard-coded hex). Respect the
       **60 / 20 / 15 / 5** ratio: backgrounds dominate, burgundy is the brand accent,

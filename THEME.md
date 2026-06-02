@@ -173,6 +173,57 @@ Keep it CSS-first (keyframes + IntersectionObserver reveals). No scroll-jacking.
 (`.3–.7s`). Particles capped and paused off-screen. Everything degrades to static with
 reduced-motion. Lazy-load motifs below the fold; keep it 60fps on mobile.
 
+### Global video background
+
+A site-wide ambient video lives **behind everything**: `public/assets/images/background.mp4`
+(~2 MB loop). It belongs to the **60% "background" layer** — it must read as burgundy
+ambience, never compete with content.
+
+**Markup** — one fixed full-viewport video in the layout (`frontend/layouts/main.blade.php`)
+so it shows on every page, with a tint overlay above it and all content above that:
+
+```html
+<div class="bg-video" aria-hidden="true">
+  <video autoplay muted loop playsinline preload="metadata"
+         poster="{{ asset('assets/images/background-poster.webp') }}">
+    <source src="{{ asset('assets/images/background.mp4') }}" type="video/mp4">
+  </video>
+  <div class="bg-video__tint"></div>   <!-- burgundy/ink wash + washi/halftone -->
+</div>
+```
+
+```css
+.bg-video{ position:fixed; inset:0; z-index:-2; overflow:hidden; }
+.bg-video video{ width:100%; height:100%; object-fit:cover; }
+.bg-video__tint{
+  position:fixed; inset:0; z-index:-1;
+  /* keep the theme dominant + text legible */
+  background:
+    linear-gradient(180deg, rgba(24,19,19,.86), rgba(30,24,24,.82)),
+    radial-gradient(120% 80% at 50% 0%, rgba(177,63,63,.28), transparent 60%);
+}
+```
+
+**Theme integration**
+- Tint is heavy (≈82–88% ink) on purpose — the burgundy palette stays in control; the
+  video is texture, not spectacle. Layer the `--washi` grain / faint halftone on top.
+- **Sections go translucent** so the video subtly shows through: instead of solid
+  `--bg-*`, use rgba versions (e.g. `background: rgba(30,24,24,.72)`), keeping the
+  primary/secondary/tertiary *rhythm* via opacity steps. Hero can be most transparent;
+  dense content sections (top-up calc, checkout-style forms) stay more opaque for contrast.
+- Content `z-index` sits above both layers (default stacking is fine since bg layers are
+  negative).
+
+**Performance & accessibility (required)**
+- `muted loop playsinline preload="metadata"` + a `.webp` **poster** (also the fallback).
+- **`prefers-reduced-motion: reduce`** → hide/pause the video, show poster + the tint
+  gradient only.
+- **Mobile / small screens** → don't autoplay the 2 MB video; fall back to poster +
+  gradient (`@media (max-width: 768px)` hides `.bg-video video`). Saves data, keeps 60fps.
+- Pause when tab hidden (`visibilitychange`) to save battery.
+- Kept pages (cart/checkout/auth/dashboards) inherit the same bg via the layout — verify
+  forms/tables stay readable; bump section opacity there if needed.
+
 ### Where each motif lands (landing page)
 - **Hero** — torii line-art + speed-lines behind title, `ink-reveal` headline, gold
   katakana kicker, slow sakura `petal-fall`, `slash-in` on the primary CTA.
