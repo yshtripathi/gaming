@@ -74,7 +74,7 @@
                     <span>{{ __('common.home') }}</span>
                 </a>
                 <div class="auth-visual-art">
-                    <img src="{{ asset('assets/media/banner/side-image.png') }}" alt="{{ __('common.forget_password') }}">
+                    <img src="{{ asset('assets/media/banner/side-image.webp') }}" alt="{{ __('common.forget_password') }}">
                 </div>
                 <div class="auth-support-card">
                     <div>

@@ -39,7 +39,7 @@
                         <div class="contact-field">
                             <label for="name">{{ __('common.enter_name') }}</label>
                             <div class="contact-input-wrap">
-                                <input type="text" name="name" id="name" placeholder="{{ __('common.enter_name') }}" class="form-control required" required>
+                                <input type="text" name="name" id="name" placeholder="{{ __('common.enter_name') }}" class="form-control required" >
                                 <i class="fal fa-user"></i>
                             </div>
                             @error('name')
@@ -50,7 +50,7 @@
                         <div class="contact-field">
                             <label for="email">{{ __('common.enter_email') }}</label>
                             <div class="contact-input-wrap">
-                                <input type="email" name="email" id="email" placeholder="{{ __('common.enter_email') }}" class="form-control required" required>
+                                <input type="email" name="email" id="email" placeholder="{{ __('common.enter_email') }}" class="form-control required" >
                                 <i class="fal fa-envelope"></i>
                             </div>
                             @error('email')
@@ -63,7 +63,7 @@
                         <div class="contact-field">
                             <label for="phone">{{ __('common.phone') }}</label>
                             <div class="contact-input-wrap">
-                                <input type="number" name="phone" id="phone" placeholder="{{ __('common.phone') }}" class="form-control required" required>
+                                <input type="number" name="phone" id="phone" placeholder="{{ __('common.phone') }}" class="form-control required" >
                                 <i class="fal fa-phone"></i>
                             </div>
                             @error('phone')
@@ -74,7 +74,7 @@
                         <div class="contact-field">
                             <label for="subject">{{ __('common.enter_subject') }}</label>
                             <div class="contact-input-wrap">
-                                <input type="text" name="subject" id="subject" placeholder="{{ __('common.enter_subject') }}" class="form-control required" required>
+                                <input type="text" name="subject" id="subject" placeholder="{{ __('common.enter_subject') }}" class="form-control required" >
                                 <i class="fal fa-gamepad"></i>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                     <div class="contact-field">
                         <label for="message">{{ __('common.enter_message') }}</label>
                         <div class="contact-input-wrap contact-textarea-wrap">
-                            <textarea name="message" id="message" placeholder="{{ __('common.enter_message') }}" class="form-control required" required></textarea>
+                            <textarea name="message" id="message" placeholder="{{ __('common.enter_message') }}" class="form-control required" ></textarea>
                             <i class="fal fa-comment-dots"></i>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                     @if(env('ENABLE_CAPTCHA', true))
                         <div class="contact-captcha-row">
                             <div class="contact-input-wrap">
-                                <input type="text" id="captcha" name="captcha" autocomplete="off" class="form-control" placeholder="{{ __('common.fill_captcha') }}" required>
+                                <input type="text" id="captcha" name="captcha" autocomplete="off" class="form-control" placeholder="{{ __('common.fill_captcha') }}" >
                                 <i class="fal fa-shield-check"></i>
                             </div>
                             <div class="contact-captcha-image">
@@ -117,7 +117,7 @@
                 </a>
 
                 <div class="contact-visual-art">
-                    <img src="{{ asset('assets/media/banner/side-image.png') }}" alt="{{ __('common.contact_hero_title') }}">
+                    <img src="{{ asset('assets/media/banner/side-image.webp') }}" alt="{{ __('common.contact_hero_title') }}">
                 </div>
 
                 <div class="contact-support-card">

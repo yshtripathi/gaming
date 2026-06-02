@@ -4293,7 +4293,7 @@ footer.gaming-footer .footer-copyright {
     border-radius: 28px !important;
     background:
         linear-gradient(135deg, rgba(8, 10, 12, 0.95) 0%, rgba(8, 10, 12, 0.85) 100%),
-        url("../media/backgrounds/login.png") center/cover no-repeat !important;
+        url("../media/backgrounds/login.webp") center/cover no-repeat !important;
     box-shadow: 0 20px 50px rgba(8, 10, 12, 0.08) !important;
     border: 1px solid rgba(255, 255, 255, 0.03) !important;
 }
@@ -4468,7 +4468,7 @@ footer.gaming-footer .footer-copyright {
     text-align: center;
     background:
         linear-gradient(180deg, rgba(8, 10, 12, 0.72) 0%, rgba(8, 10, 12, 0.60) 55%, rgba(8, 10, 12, 0.84) 100%),
-        url("../images/breadcrumb.jpg") center / cover no-repeat !important;
+        url("../images/breadcrumb.webp") center / cover no-repeat !important;
     border-bottom: 2px solid rgba(223, 255, 0, 0.45) !important;
 }
 
@@ -4860,7 +4860,7 @@ footer.gaming-footer .footer-copyright {
     border-radius: 28px !important;
     background:
         linear-gradient(90deg, rgba(8, 10, 12, 0.92), rgba(8, 10, 12, 0.76), rgba(8, 10, 12, 0.92)),
-        url("../images/i-2.png") center/cover no-repeat !important;
+        url("../images/about-cta-bg.webp") center/cover no-repeat !important;
     border: 1px solid rgba(8, 10, 12, 0.08) !important;
     box-shadow: 0 30px 80px rgba(8, 10, 12, 0.1) !important;
 }
@@ -5223,7 +5223,7 @@ footer.gaming-footer .footer-copyright {
     border-radius: 28px !important;
     background:
         linear-gradient(135deg, rgba(8, 10, 12, 0.95) 0%, rgba(8, 10, 12, 0.85) 100%),
-        url("../media/backgrounds/login.png") center/cover no-repeat !important;
+        url("../media/backgrounds/login.webp") center/cover no-repeat !important;
     box-shadow: 0 20px 50px rgba(8, 10, 12, 0.08) !important;
     border: 1px solid rgba(255, 255, 255, 0.03) !important;
 }
@@ -6077,7 +6077,7 @@ footer.gaming-footer .footer-copyright {
     border-radius: 34px;
     background:
         linear-gradient(180deg, rgba(8, 11, 8, 0.12), rgba(8, 11, 8, 0.92)),
-        url("../media/backgrounds/login.png") center/cover no-repeat;
+        url("../media/backgrounds/login.webp") center/cover no-repeat;
     box-shadow: 0 32px 80px rgba(8, 11, 8, 0.34);
 }
 
@@ -6481,7 +6481,7 @@ footer.gaming-footer .footer-copyright {
     padding: 130px 0 84px;
     background:
         linear-gradient(120deg, rgba(245, 203, 226, 0.88), rgba(247, 218, 239, 0.74) 42%, rgba(8, 11, 25, 0.95) 100%),
-        url("../media/banner/side-image.png") right 6% top 92px / 360px auto no-repeat;
+        url("../media/banner/side-image.webp") right 6% top 92px / 360px auto no-repeat;
     min-height: 100vh;
     overflow: hidden;
 }
@@ -6727,7 +6727,7 @@ footer.gaming-footer .footer-copyright {
     .checkout-page-wrapper.checkout-contact-page {
         background:
             linear-gradient(145deg, rgba(245, 203, 226, 0.92), rgba(247, 218, 239, 0.82) 58%, rgba(8, 11, 25, 0.9) 100%),
-            url("../media/banner/side-image.png") right -90px top 80px / 300px auto no-repeat;
+            url("../media/banner/side-image.webp") right -90px top 80px / 300px auto no-repeat;
     }
 
     .cart-page-heading,

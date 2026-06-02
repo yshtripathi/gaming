@@ -458,7 +458,7 @@
                     <span>{{ __('common.home') }}</span>
                 </a>
                 <div class="auth-visual-art">
-                    <img src="{{ asset('assets/media/banner/side-image.png') }}" alt="{{ auth()->user()->name }}">
+                    <img src="{{ asset('assets/media/banner/side-image.webp') }}" alt="{{ auth()->user()->name }}">
                 </div>
                 <div class="auth-support-card">
                     <div>

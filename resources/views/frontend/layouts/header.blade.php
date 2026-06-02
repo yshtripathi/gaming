@@ -532,7 +532,7 @@ header.small-screen .mobile-navar ul li.has-children.active > a,
   <div id="preloader">
     <div class="preloader-content">
       <div class="preloader-logo">
-        <img src="{{ asset('assets/media/favicon-polygamez.png') }}" alt="Polygamez">
+        <img src="{{ asset('assets/media/favicon.webp') }}" alt="Polygamez">
       </div>
       <div class="preloader-spinner">
         <div class="spinner-ring"></div>
@@ -554,7 +554,7 @@ header.small-screen .mobile-navar ul li.has-children.active > a,
             <a class="navbar-brand" href="{{route('home')}}" style="display: inline-block !important; padding: 0 !important;">
     <img
         alt="Polygamez"
-        src="{{url('assets/media/logo-polygamez-tight.png')}}"
+        src="{{url('assets/media/logo.webp')}}"
         style="height: 74px !important; width: auto !important; max-width: 300px !important; object-fit: contain !important; display: block !important; padding: 0 !important; margin: 0 !important;"
     >
 </a>
@@ -694,7 +694,7 @@ header.small-screen .mobile-navar ul li.has-children.active > a,
         <div class="mobile-menu">
 <a class="navbar-brand" href="{{route('home')}}" style="display: inline-block !important; padding: 0 !important;">
     <img
-        src="{{url('assets/media/logo-polygamez-tight.png')}}"
+        src="{{url('assets/media/logo.webp')}}"
         alt="Polygamez"
         style="height: 62px !important; width: auto !important; max-width: 250px !important; object-fit: contain !important; display: block !important; padding: 0 !important; margin: 0 !important;"
     >

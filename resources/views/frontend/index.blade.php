@@ -37,7 +37,7 @@
           <div class="col-lg-5 animate-fade-in-up delay-4">
             <div class="hero-showcase">
               <div class="hero-showcase-card hero-showcase-main">
-                <img src="{{asset('assets/media/banner/side-image.png')}}" alt="{{ __('common.gaming_zone') }}" loading="eager">
+                <img src="{{asset('assets/media/banner/side-image.webp')}}" alt="{{ __('common.gaming_zone') }}" loading="eager">
               </div>
               <div class="hero-showcase-pill hero-pill-top">{{ __('common.fast_secure') }}</div>
               <div class="hero-showcase-pill hero-pill-bottom">{{ __('common.instant_delivery') }}</div>
@@ -570,7 +570,7 @@
                   
                   <!-- Autoplay looping muted playsinline video -->
                   <video class="cinema-video-element" autoplay muted loop playsinline>
-                    <source src="{{ asset('assets/images/home.mp4') }}" type="video/mp4">
+                    <source src="{{ asset('assets/images/hero-video.mp4') }}" type="video/mp4">
                     Your browser does not support the video tag.
                   </video>
                 </div>

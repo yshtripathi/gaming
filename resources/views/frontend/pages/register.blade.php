@@ -109,7 +109,7 @@
                     <span>{{ __('common.home') }}</span>
                 </a>
                 <div class="auth-visual-art">
-                    <img src="{{ asset('assets/media/banner/side-image.png') }}" alt="{{ __('common.register') }}">
+                    <img src="{{ asset('assets/media/banner/side-image.webp') }}" alt="{{ __('common.register') }}">
                 </div>
                 <div class="auth-support-card">
                     <div>

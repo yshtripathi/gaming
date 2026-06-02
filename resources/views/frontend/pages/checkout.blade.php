@@ -968,11 +968,11 @@
                         </div>
                         
                         <div class="dba-text">
-                            <p class="m-0">{{ __('common.dba_text') }} <img src="{{ asset('assets/images/dba.png') }}" alt="dba" style="width:70px;margin-bottom:3px;vertical-align:middle;"></p>
+                            <p class="m-0">{{ __('common.dba_text') }} <img src="{{ asset('assets/images/dba.webp') }}" alt="dba" style="width:70px;margin-bottom:3px;vertical-align:middle;"></p>
                         </div>
                         
                         <div class="payment-logos">
-                            <img src="{{ asset('assets/images/payment.png') }}" alt="Payment Methods">
+                            <img src="{{ asset('assets/images/payment.webp') }}" alt="Payment Methods">
                         </div>
                     </div>
                 </div>

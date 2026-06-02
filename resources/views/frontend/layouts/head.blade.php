@@ -18,8 +18,8 @@
 
 <meta name="robots" content="index, follow">
   <!-- Favicon -->
-    <meta name="favicon"  content="{{ asset('assets/media/favicon-polygamez.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('assets/media/favicon-polygamez.png') }}">
+    <meta name="favicon"  content="{{ asset('assets/media/favicon.webp') }}">
+    <link rel="icon" type="image/webp" href="{{ asset('assets/media/favicon.webp') }}">
   <!-- All CSS files -->
   <link rel="stylesheet" href="{{url('assets/css/vendor/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{url('assets/css/vendor/font-awesome.css')}}">

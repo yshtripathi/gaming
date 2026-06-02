@@ -50,8 +50,8 @@
         <div class="container">
             <div class="about-intro-grid">
                 <div class="about-image-frame">
-                    <img src="{{ asset('assets/images/i-1.jpg') }}" alt="{{ __('common.about_us') }}">
-                    <img src="{{ asset('assets/images/i-3.jpg') }}" alt="{{ __('common.about_us') }}" class="about-image-inset">
+                    <img src="{{ asset('assets/images/about-main.webp') }}" alt="{{ __('common.about_us') }}">
+                    <img src="{{ asset('assets/images/about-inset.webp') }}" alt="{{ __('common.about_us') }}" class="about-image-inset">
                 </div>
 
                 <div class="about-copy-block">

@@ -300,7 +300,7 @@
             <div class="footer-widget">
                 <a href="{{route('home')}}" class="footer-logo" style="display: inline-block !important;">
 <img
-    src="{{ url('assets/media/logo-polygamez-tight.png') }}"
+    src="{{ url('assets/media/logo.webp') }}"
     alt="Polygamez"
     style="height: 64px !important; width: auto !important; max-width: 260px !important; object-fit: contain !important; display: block !important;"
 >
@@ -400,7 +400,7 @@
                     © {{date('Y')}} <a href="{{route('home')}}">{{ $misc['Company Name'] ?? __('common.company_name') }}</a>. {{ __('common.all_right_reserved') }}
                 </p>
                 <div class="payment-icons">
-                    <img src="{{url('/assets/images/payment.png')}}" alt="payment-icon">
+                    <img src="{{url('/assets/images/payment.webp')}}" alt="payment-icon">
                 </div>
             </div>
         </div>
