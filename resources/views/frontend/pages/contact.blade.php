@@ -1,6 +1,20 @@
 @extends('frontend.layouts.main')
 @section('title', 'Contact Us')
 
+@push('styles')
+<style>
+/* Validation / required-field messages — warning amber (matches checkout) */
+#contact_form .text-danger,
+#contact_form label.error {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #b45309 !important; /* warning amber */
+    margin-top: 6px;
+}
+</style>
+@endpush
+
 @section('main-content')
     <div class="about-title-band">
         <!-- HUD Visual Effects -->
@@ -42,9 +56,6 @@
                                 <input type="text" name="name" id="name" placeholder="{{ __('common.enter_name') }}" class="form-control required" >
                                 <i class="fal fa-user"></i>
                             </div>
-                            @error('name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
 
                         <div class="contact-field">
@@ -53,9 +64,6 @@
                                 <input type="email" name="email" id="email" placeholder="{{ __('common.enter_email') }}" class="form-control required" >
                                 <i class="fal fa-envelope"></i>
                             </div>
-                            @error('email')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
 
@@ -66,9 +74,6 @@
                                 <input type="number" name="phone" id="phone" placeholder="{{ __('common.phone') }}" class="form-control required" >
                                 <i class="fal fa-phone"></i>
                             </div>
-                            @error('phone')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
 
                         <div class="contact-field">
@@ -132,3 +137,44 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script src="{{ url('assets/js/vendor/jquery-validator.js') }}"></script>
+<script>
+$(document).ready(function () {
+    $("#contact_form").validate({
+        rules: {
+            name: "required",
+            email: { required: true, email: true },
+            phone: { required: true, minlength: 10 },
+            subject: "required",
+            message: "required",
+            @if(env('ENABLE_CAPTCHA', true))
+            captcha: "required",
+            @endif
+        },
+        messages: {
+            name: "{{ __('common.name_required') }}",
+            email: "{{ __('common.email_required') }}",
+            phone: {
+                required: "{{ __('common.phone_required') }}",
+                minlength: "{{ __('common.phone_min') }}"
+            },
+            subject: "{{ __('common.subject_required') }}",
+            message: "{{ __('common.message_required') }}",
+            captcha: "{{ __('common.fill_it') }}"
+        },
+        errorPlacement: function (error, element) {
+            error.addClass('text-danger');
+            error.css('display', 'block');
+            if (element.attr('id') === 'captcha') {
+                error.insertAfter(element.closest('.contact-captcha-row'));
+            } else {
+                var wrap = element.closest('.contact-input-wrap');
+                error.insertAfter(wrap.length ? wrap : element);
+            }
+        }
+    });
+});
+</script>
+@endpush

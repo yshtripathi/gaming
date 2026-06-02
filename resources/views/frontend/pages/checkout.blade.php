@@ -216,8 +216,8 @@
 .checkout-checkbox.error {
     padding: 8px 12px;
     border-radius: 8px;
-    background: rgba(239, 68, 68, 0.05);
-    border: 1px solid rgba(239, 68, 68, 0.15);
+    background: rgba(180, 83, 9, 0.06);
+    border: 1px solid rgba(180, 83, 9, 0.28);
 }
 
 /* Payment Logos */
@@ -516,11 +516,13 @@
     transform: translateY(-2px) !important;
 }
 
-/* Error Messages */
-.text-danger {
+/* Error / warning messages */
+.text-danger,
+#frmCheckout label.error {
     display: block;
     font-size: 12px;
-    color: #ef4444;
+    font-weight: 600;
+    color: #b45309 !important; /* warning amber */
     margin-top: 8px;
 }
 
@@ -1108,6 +1110,9 @@ $(document).ready(function() {
     });
 
     $("#frmCheckout").validate({
+        // validate the policy checkboxes too — they're display:none (custom UI),
+        // which the default ignore:":hidden" would otherwise skip.
+        ignore: ":hidden:not([type=checkbox])",
         rules: {
             first_name: "required",
             last_name: "required",
