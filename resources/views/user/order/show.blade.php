@@ -6,7 +6,8 @@
 <style>
 /* Order detail - shares the dashboard (auth) aesthetic */
 .order-detail-page .auth-shell {
-    max-width: 1100px !important;
+    grid-template-columns: minmax(0, 1fr) !important; /* single full-width column (no visual panel) */
+    max-width: 980px !important;
     min-height: auto !important;
 }
 
