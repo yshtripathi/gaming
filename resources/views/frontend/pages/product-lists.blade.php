@@ -583,7 +583,7 @@
     <div class="container">
         <div class="category-spotlight-card">
             <div class="category-spotlight-media animate-fade-in-up">
-                <img src="{{ isset($catphoto) && $catphoto ? env('WEBSITE_URL') . '/' . $catphoto : (isset($category->photo) && $category->photo ? asset($category->photo) : asset('assets/media/blogs/bd-1.png')) }}" alt="{{ $category->title }}">
+                <img src="{{ isset($catphoto) && $catphoto ? asset($catphoto) : (isset($category->photo) && $category->photo ? asset($category->photo) : asset('assets/media/blogs/bd-1.png')) }}" alt="{{ $category->title }}">
             </div>
             <div class="category-spotlight-content animate-fade-in-up delay-1">
                 <h2 class="spotlight-title">{{ $category->title }}</h2>
