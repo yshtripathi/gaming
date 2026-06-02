@@ -4466,15 +4466,17 @@ footer.gaming-footer .footer-copyright {
     overflow: hidden;
     padding: 120px 0 74px !important;
     text-align: center;
-    background: #f6f7f2 !important;
-    border-bottom: 1px solid rgba(8, 10, 12, 0.06) !important;
+    background:
+        linear-gradient(180deg, rgba(8, 10, 12, 0.72) 0%, rgba(8, 10, 12, 0.60) 55%, rgba(8, 10, 12, 0.84) 100%),
+        url("../images/breadcrumb.jpg") center / cover no-repeat !important;
+    border-bottom: 2px solid rgba(223, 255, 0, 0.45) !important;
 }
 
 .about-hud-grid {
     position: absolute;
     inset: 0;
     z-index: 0;
-    opacity: 0.85;
+    opacity: 0.25;
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(223, 255, 0, 0.12) 0%, transparent 40%),
         repeating-linear-gradient(90deg, rgba(8, 10, 12, 0.015) 0 1px, transparent 1px 40px),
@@ -4535,30 +4537,30 @@ footer.gaming-footer .footer-copyright {
 
 .about-hud-title {
     margin: 0 0 16px;
-    color: #0b0d10 !important;
+    color: #ffffff !important;
     font-size: clamp(42px, 5.5vw, 68px) !important;
     font-weight: 900 !important;
     text-transform: uppercase;
     letter-spacing: -1.5px !important;
     line-height: 0.95;
-    text-shadow: 0 4px 15px rgba(8, 10, 12, 0.02) !important;
+    text-shadow: 0 6px 24px rgba(0, 0, 0, 0.45) !important;
 }
 
 .about-hud-breadcrumb-capsule {
     display: inline-flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.85) !important;
-    border: 1px solid rgba(8, 10, 12, 0.08) !important;
+    background: rgba(11, 13, 16, 0.55) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
     border-radius: 999px !important;
     padding: 8px 22px !important;
-    box-shadow: 
-        0 10px 30px rgba(8, 10, 12, 0.05),
-        inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+    box-shadow:
+        0 10px 30px rgba(8, 10, 12, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
     backdrop-filter: blur(10px);
 }
 
 .hud-breadcrumb-link {
-    color: #34383f !important;
+    color: rgba(255, 255, 255, 0.8) !important;
     text-decoration: none !important;
     font-size: 12.5px !important;
     font-weight: 700 !important;
@@ -4566,7 +4568,7 @@ footer.gaming-footer .footer-copyright {
 }
 
 .hud-breadcrumb-link:hover {
-    color: #6d7f00 !important;
+    color: #dfff00 !important;
     transform: translateY(-1px);
 }
 
@@ -4574,13 +4576,13 @@ footer.gaming-footer .footer-copyright {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: rgba(8, 10, 12, 0.18) !important;
+    color: rgba(255, 255, 255, 0.3) !important;
     font-size: 10px !important;
     margin: 0 12px !important;
 }
 
 .hud-breadcrumb-current {
-    color: #6d7f00 !important;
+    color: #dfff00 !important;
     font-size: 12.5px !important;
     font-weight: 800 !important;
     letter-spacing: 0.5px;

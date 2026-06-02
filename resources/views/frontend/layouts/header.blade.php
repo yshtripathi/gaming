@@ -307,95 +307,212 @@ header.small-screen .mobile-navar ul li.has-children.active > a,
 }
 .mobile-icon-btn .badge { background: var(--accent, #ff2a2a); color: #fff; font-size: 11px; padding: 2px 6px; border-radius: 10px; }
 
-/* ---------- Side cart (Gaming HUD theme) ---------- */
+/* ====================================================================
+   Side cart — PolyGamez fresh HUD panel
+   Flex-column panel: dark header bar, scrolling item list, pinned footer.
+   JS hooks preserved: .sideCart-wrapper(.show) / .sidemenu-content /
+   .sideMenuCls2(.closeButton). Beats app.css + theme.css (loaded last).
+   ==================================================================== */
+
+/* Translucent dim backdrop — page stays visible behind the panel */
+.sideCart-wrapper.offcanvas-wrapper {
+    background: rgba(8, 10, 12, 0.5) !important;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+
+/* Panel shell: flex column so the list scrolls and the footer pins */
 .sideCart-wrapper .sidemenu-content {
-    background: #ffffff !important;
-    padding: 34px 28px !important;
-    background-image:
-        radial-gradient(circle at 100% 0%, rgba(223, 255, 0, 0.05) 0%, transparent 42%) !important;
+    width: 420px !important;
+    max-width: 92vw !important;
+    padding: 0 !important;
+    background: var(--bg, #f6f7f2) !important;
+    background-image: none !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: -24px 0 60px rgba(8, 10, 12, 0.28);
 }
-/* Full-bleed obsidian HUD header */
+.sideCart-wrapper .widget.widget_shopping_cart {
+    display: flex; flex-direction: column;
+    flex: 1 1 auto; min-height: 0; margin: 0 !important; padding: 0 !important;
+}
+
+/* ---- Dark header bar ---- */
 .sideCart-wrapper .widget_title {
-    position: relative;
-    margin: -34px -28px 24px !important;
-    padding: 24px 28px !important;
-    background: #0b0d10 !important;
-    color: var(--primary, #dfff00) !important;
+    position: relative; flex: 0 0 auto;
+    margin: 0 !important; padding: 26px 26px 22px !important;
+    background: var(--text, #0b0d10) !important; color: #fff !important;
     font-family: 'Chakra Petch', sans-serif !important;
-    font-size: 18px !important; font-weight: 800 !important;
-    text-transform: uppercase; letter-spacing: 1px;
-    border-bottom: 2px solid var(--primary-ink, #6d7f00) !important;
+    font-size: 17px !important; font-weight: 800 !important;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    display: flex; align-items: center; gap: 10px; border: none !important;
 }
-.sideCart-wrapper .cart_list { max-height: 58vh; overflow-y: auto; padding-right: 8px; list-style: none; }
+.sideCart-wrapper .widget_title::before {
+    content: "\f07a"; /* fa-shopping-cart */
+    font-family: "Font Awesome 5 Free", "Font Awesome 5 Pro", sans-serif; font-weight: 900;
+    color: var(--primary, #dfff00); font-size: 18px;
+}
+.sideCart-wrapper .widget_title::after {
+    content: ""; position: absolute; left: 26px; bottom: 0;
+    width: 46px; height: 3px; background: var(--primary, #dfff00);
+}
+
+/* ---- Scrollable item list ---- */
+.sideCart-wrapper .widget_shopping_cart_content {
+    display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0;
+}
+.sideCart-wrapper .cart_list {
+    flex: 1 1 auto; min-height: 0; overflow-y: auto;
+    list-style: none; margin: 0; padding: 18px 18px 6px;
+}
 .sideCart-wrapper .cart_list::-webkit-scrollbar { width: 6px; }
-.sideCart-wrapper .cart_list::-webkit-scrollbar-track { background: var(--surface-2, #f0f2e9); border-radius: 3px; }
-.sideCart-wrapper .cart_list::-webkit-scrollbar-thumb { background: var(--primary-ink, #6d7f00); border-radius: 3px; }
+.sideCart-wrapper .cart_list::-webkit-scrollbar-track { background: transparent; }
+.sideCart-wrapper .cart_list::-webkit-scrollbar-thumb { background: rgba(8, 10, 12, 0.18); border-radius: 3px; }
+.sideCart-wrapper .cart_list::-webkit-scrollbar-thumb:hover { background: var(--primary-ink, #5d7100); }
+
+/* ---- Item card ---- */
 .sideCart-wrapper .mini_cart_item {
-    background: #ffffff !important;
-    border: 1px solid var(--border-light, rgba(8, 10, 12, 0.08)) !important;
-    border-radius: 14px !important; padding: 14px !important; margin-bottom: 12px !important;
     position: relative; list-style: none;
-    box-shadow: 0 6px 18px rgba(8, 10, 12, 0.03);
-    transition: var(--transition, all 0.25s ease);
+    background: var(--surface, #ffffff) !important;
+    border: 1px solid var(--border-light, rgba(8, 10, 12, 0.08)) !important;
+    border-radius: 16px !important; padding: 16px !important; margin: 0 0 12px !important;
+    box-shadow: 0 4px 16px rgba(8, 10, 12, 0.04);
+    transition: all 0.25s ease;
 }
 .sideCart-wrapper .mini_cart_item:hover {
-    border-color: var(--primary-ink, #6d7f00) !important;
-    box-shadow: 0 12px 28px rgba(109, 127, 0, 0.1);
-    transform: translateY(-2px);
+    border-color: var(--primary, #dfff00) !important;
+    box-shadow: 0 14px 30px rgba(8, 10, 12, 0.08);
 }
-.sideCart-wrapper .mini_cart_item .remove {
-    position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(239, 68, 68, 0.07); border: 1px solid rgba(239, 68, 68, 0.2);
-    color: var(--accent, #ef4444) !important; text-decoration: none; font-size: 13px;
-    transition: var(--transition, all 0.25s ease);
+/* remove (trash) chip — force inside the card (beats app.css left:95%/top:50%) */
+.sideCart-wrapper .mini_cart_item > .remove {
+    position: absolute !important; top: 12px !important; right: 12px !important;
+    left: auto !important; transform: none !important; z-index: 2;
+    width: 30px; height: 30px; border-radius: 9px;
+    display: flex !important; align-items: center; justify-content: center;
+    background: rgba(255, 42, 42, 0.08); border: 1px solid rgba(255, 42, 42, 0.2);
+    color: var(--accent, #ff2a2a) !important; text-decoration: none; font-size: 13px;
+    transition: all 0.2s ease;
 }
-.sideCart-wrapper .mini_cart_item .remove:hover { background: var(--accent, #ef4444); color: #fff !important; border-color: var(--accent, #ef4444); }
-.cart-product-info { display: flex; flex-direction: column; width: 100%; }
-.sideCart-wrapper .prductsde_info { display: flex; align-items: flex-start; gap: 12px; text-decoration: none; }
-.sideCart-wrapper .prductsde_info img { width: 58px; height: 58px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border-light, rgba(8, 10, 12, 0.06)); }
-.sideCart-wrapper .prductsde_info p,
-.cart-product-title { color: var(--text, #0b0d10) !important; font-family: 'Chakra Petch', sans-serif !important; font-weight: 800; font-size: 14.5px; margin: 0 0 6px; line-height: 1.3; }
-.cart-total-points { color: var(--primary-ink, #6d7f00) !important; margin-top: 8px; text-align: left; font-weight: 800; font-family: 'Chakra Petch', sans-serif !important; }
-.sideCart-wrapper .text-white { color: var(--text-secondary, #565d68) !important; }
+.sideCart-wrapper .mini_cart_item > .remove:hover {
+    background: var(--accent, #ff2a2a); color: #fff !important;
+    border-color: var(--accent, #ff2a2a); transform: rotate(8deg);
+}
+
+/* product row */
+.sideCart-wrapper .prductsde_info { display: flex; align-items: flex-start; gap: 14px; text-decoration: none; padding-right: 34px; }
+.sideCart-wrapper .prductsde_info > a { flex: 0 0 auto; }
+.sideCart-wrapper .prductsde_info img {
+    width: 72px; height: 72px; border-radius: 14px; object-fit: cover;
+    border: 1px solid var(--border-light, rgba(8, 10, 12, 0.08));
+    background: var(--surface-2, #f0f2e9);
+}
+.sideCart-wrapper .cart-product-info { display: flex; flex-direction: column; width: 100%; min-width: 0; align-items: flex-start; }
+.sideCart-wrapper .cart-product-title {
+    color: var(--text, #0b0d10) !important; font-family: 'Chakra Petch', sans-serif !important;
+    font-weight: 800; font-size: 15px; line-height: 1.3; margin: 0 0 8px;
+}
+/* base points line ( number + ) */
+.sideCart-wrapper .cart-product-info > p.text-white,
+.sideCart-wrapper .text-white { color: var(--text-muted, #68707a) !important; font-size: 12px; font-weight: 600; }
+.sideCart-wrapper .cart-product-info > p.text-white { margin: 0 0 6px; }
+
+/* points pill */
+.sideCart-wrapper .cart-total-points {
+    display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; margin: 4px 0 0 !important;
+    background: var(--primary, #dfff00); color: var(--text, #0b0d10) !important;
+    font-family: 'Chakra Petch', sans-serif !important; font-weight: 800; font-size: 13px;
+    padding: 5px 12px; border-radius: 999px; line-height: 1;
+}
+
+/* training hours chip */
 .car-hours-group {
-    position: relative; background: rgba(109, 127, 0, 0.06);
-    border: 1px dashed rgba(109, 127, 0, 0.3);
-    padding: 10px 14px; border-radius: 10px; margin-top: 8px; display: inline-block; min-width: 240px;
+    position: relative; display: block; margin-top: 8px; width: 100%;
+    background: var(--surface-2, #f0f2e9); border: 1px dashed rgba(109, 127, 0, 0.4);
+    border-radius: 12px; padding: 10px 14px;
 }
-.car-hours-group h5 { color: #4d5a00; font-family: 'Chakra Petch', sans-serif !important; font-weight: 800; font-size: 14px; margin-bottom: 4px; }
-.training-remove {
-    position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%;
-    background: var(--primary-ink, #6d7f00); color: #fff !important; text-align: center; line-height: 22px; text-decoration: none; font-weight: 700;
-    box-shadow: 0 2px 8px rgba(109, 127, 0, 0.3); transition: var(--transition, all 0.25s ease);
+.car-hours-group h5 {
+    color: var(--primary-ink, #5d7100) !important; font-family: 'Chakra Petch', sans-serif !important;
+    font-weight: 800; font-size: 14px; margin: 0 0 2px;
 }
-.training-remove:hover { background: var(--accent, #ef4444); }
-.sideCart-wrapper .cart-info { text-align: left; color: var(--primary-ink, #6d7f00) !important; font-weight: 800; font-size: 15px; font-family: 'Chakra Petch', sans-serif !important; }
+.car-hours-group p { color: var(--text-muted, #68707a) !important; font-size: 12px; margin: 0; }
+.car-hours-group .training-remove {
+    position: absolute; top: -9px; right: -9px; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--text, #0b0d10); color: #fff !important; text-align: center; line-height: 20px;
+    text-decoration: none; font-weight: 700; font-size: 13px;
+    box-shadow: 0 2px 8px rgba(8, 10, 12, 0.25); transition: all 0.2s ease;
+}
+.car-hours-group .training-remove:hover { background: var(--accent, #ff2a2a); transform: scale(1.1); }
+
+/* non-game (points) item — centered, balanced padding, clear of the remove chip */
+.sideCart-wrapper .mini_cart_item:has(.cart-info) { padding: 18px 18px !important; }
+.sideCart-wrapper .cart-info {
+    padding: 6px 20px 4px !important; text-align: center;
+    color: var(--text, #0b0d10) !important;
+    font-weight: 800; font-size: 16px; font-family: 'Chakra Petch', sans-serif !important;
+}
+.sideCart-wrapper .cart-info p { color: var(--text-muted, #68707a) !important; font-size: 13px; font-weight: 600; margin: 4px 0 0; }
+
+/* ---- Pinned footer (total + CTAs) ---- */
+.sideCart-wrapper .sidecart-footer {
+    flex: 0 0 auto; padding: 18px;
+    background: var(--surface, #ffffff);
+    border-top: 1px solid var(--border-light, rgba(8, 10, 12, 0.08));
+    box-shadow: 0 -10px 30px rgba(8, 10, 12, 0.05);
+}
 .sideCart-wrapper .total {
-    background: #0b0d10 !important; border: 1px solid rgba(223, 255, 0, 0.15) !important;
-    border-radius: 16px; padding: 18px 20px; text-align: center; width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--text, #0b0d10) !important; border: none !important;
+    border-radius: 14px; padding: 16px 20px; margin: 0 0 14px !important; width: 100%;
 }
-.sideCart-wrapper .total strong { color: rgba(255, 255, 255, 0.6) !important; font-family: 'Chakra Petch', sans-serif !important; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.sideCart-wrapper .total strong {
+    color: rgba(255, 255, 255, 0.7) !important; font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; margin: 0;
+}
 .sideCart-wrapper .total .amount {
-    display: inline-block; margin-top: 8px; font-size: 26px; font-weight: 900;
-    color: var(--primary, #dfff00) !important; font-family: 'Chakra Petch', sans-serif !important; white-space: nowrap;
+    color: var(--primary, #dfff00) !important; font-family: 'Chakra Petch', sans-serif !important;
+    font-weight: 900; font-size: 22px; white-space: nowrap;
 }
+/* CTA buttons — full width, notched HUD style */
+.sideCart-wrapper .buttons { display: flex; gap: 10px; margin: 0 !important; }
 .sideCart-wrapper .buttons .cus-btn {
+    flex: 1 1 0; width: auto !important; margin: 0 !important; min-width: 0;
+    justify-content: center; text-align: center;
     background: var(--primary, #dfff00) !important; color: var(--text, #0b0d10) !important;
-    border-radius: 999px; padding: 13px 22px; font-weight: 800; border: 1px solid var(--primary, #dfff00);
-    font-family: 'Chakra Petch', sans-serif !important; text-transform: uppercase; letter-spacing: 0.5px; font-size: 13px;
-    box-shadow: var(--glow-primary, 0 12px 28px rgba(195, 226, 0, 0.25));
+    border: none !important; padding: 14px 16px !important; font-size: 13px !important;
+    font-family: 'Chakra Petch', sans-serif !important; font-weight: 800 !important;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    transition: all 0.2s ease !important; box-shadow: 0 10px 24px rgba(195, 226, 0, 0.28);
 }
+.sideCart-wrapper .buttons .cus-btn::before { display: none !important; }
 .sideCart-wrapper .buttons .cus-btn:hover,
 .sideCart-wrapper .buttons .cus-btn:focus,
-.sideCart-wrapper .buttons .cus-btn:active { background: var(--primary-dark, #b7d600) !important; color: var(--text, #0b0d10) !important; transform: translateY(-2px); }
+.sideCart-wrapper .buttons .cus-btn:active {
+    background: var(--text, #0b0d10) !important; color: var(--primary, #dfff00) !important;
+    box-shadow: 0 12px 28px rgba(8, 10, 12, 0.25); transform: translateY(-2px);
+}
+
+/* ---- Close button (lime chip, reads on dark header + light empty state) ---- */
 .sideCart-wrapper .closeButton {
-    position: absolute !important; top: 20px !important; right: 24px !important; z-index: 5;
-    background: var(--primary, #dfff00) !important; border: none !important; color: var(--text, #0b0d10) !important;
-    width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    transition: var(--transition, all 0.25s ease);
+    position: absolute !important; top: 20px !important; right: 22px !important; z-index: 6;
+    width: 36px; height: 36px; border-radius: 10px; padding: 0 !important;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--primary, #dfff00) !important; border: none !important;
+    color: var(--text, #0b0d10) !important; font-size: 16px; line-height: 1;
+    box-shadow: 0 4px 12px rgba(8, 10, 12, 0.22); transition: all 0.2s ease;
 }
 .sideCart-wrapper .closeButton:hover { background: #ffffff !important; color: var(--text, #0b0d10) !important; transform: rotate(90deg); }
+
+/* ---- Empty state (only the title is present) ---- */
+.sideCart-wrapper .widget_shopping_cart > .widget_title:only-child {
+    background: var(--bg, #f6f7f2) !important; color: var(--text-muted, #68707a) !important;
+    justify-content: center; text-align: center; letter-spacing: 1px;
+    padding: 90px 26px !important; font-size: 15px !important;
+}
+.sideCart-wrapper .widget_shopping_cart > .widget_title:only-child::before {
+    display: block; margin: 0 auto 14px; font-size: 32px;
+}
+.sideCart-wrapper .widget_shopping_cart > .widget_title:only-child::after { display: none; }
 
 /* ---------- Back to top ---------- */
 .back-to-top { background: var(--primary, #dfff00); color: var(--text, #0b0d10); }
@@ -783,7 +900,7 @@ header.small-screen .mobile-navar ul li.has-children.active > a,
                                             ->first();
                             @endphp
 
-                            <div class="cart-info" style="padding-left: 10px;">
+                            <div class="cart-info">
                                 {{ $points.' '.__('common.points') }}
 
                                 <p class="mb-0">
@@ -801,43 +918,48 @@ header.small-screen .mobile-navar ul li.has-children.active > a,
                 </ul>
 
 
-                {{-- TOTAL --}}
-                <div class="total mb-4">
+                {{-- PINNED FOOTER: total + CTAs --}}
+                <div class="sidecart-footer">
 
-                    @php
-                        $total_amount = Helper::totalCartPrice();
+                    {{-- TOTAL --}}
+                    <div class="total">
 
-                        if(session()->has('coupon')) {
-                            $total_amount -= Session::get('coupon')['value'];
-                        }
-                    @endphp
+                        @php
+                            $total_amount = Helper::totalCartPrice();
 
-                    <strong>{{__('common.total')}}:</strong>
+                            if(session()->has('coupon')) {
+                                $total_amount -= Session::get('coupon')['value'];
+                            }
+                        @endphp
 
-                    @if($hasGameProduct)
-                        <span class="amount">{{ number_format($total_amount,0) }} {{ __('common.points') }}</span>
-                    @else
-                        <span class="amount">{{ Helper::getCurrencySymbol(session('currency')) }} {{ number_format($total_amount,0) }}</span>
-                    @endif
-                </div>
+                        <strong>{{__('common.total')}}:</strong>
+
+                        @if($hasGameProduct)
+                            <span class="amount">{{ number_format($total_amount,0) }} {{ __('common.points') }}</span>
+                        @else
+                            <span class="amount">{{ Helper::getCurrencySymbol(session('currency')) }} {{ number_format($total_amount,0) }}</span>
+                        @endif
+                    </div>
 
 
-                {{-- BUTTON SECTION --}}
-                <div class="buttons d-flex justify-content-center">
+                    {{-- BUTTON SECTION --}}
+                    <div class="buttons">
 
-                    @if($hasGameProduct)
-                        <a href="{{ route('gamecart') }}" class="cus-btn primary me-3" style="background: var(--primary) !important; color: var(--text) !important; transition: none !important; cursor: pointer !important;">
-                            {{ __('common.purchase_services') }}
-                        </a>
-                    @else
-                        <a href="{{ route('cart') }}" class="cus-btn primary me-3" style="background: var(--primary) !important; color: var(--text) !important; transition: none !important; cursor: pointer !important;">
-                            {{__('common.view_cart')}}
-                        </a>
+                        @if($hasGameProduct)
+                            <a href="{{ route('gamecart') }}" class="cus-btn primary">
+                                {{ __('common.purchase_services') }}
+                            </a>
+                        @else
+                            <a href="{{ route('cart') }}" class="cus-btn primary">
+                                {{__('common.view_cart')}}
+                            </a>
 
-                        <a href="{{ route('checkout') }}" class="cus-btn primary" style="background: var(--primary) !important; color: var(--text) !important; transition: none !important; cursor: pointer !important;">
-                            {{__('common.checkout')}}
-                        </a>
-                    @endif
+                            <a href="{{ route('checkout') }}" class="cus-btn primary">
+                                {{__('common.checkout')}}
+                            </a>
+                        @endif
+
+                    </div>
 
                 </div>
 
